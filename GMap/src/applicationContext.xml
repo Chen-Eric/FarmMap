@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://localhost:3306/FMDB"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.connection.release_mode">after_transaction</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>domain/Block.hbm.xml</value>
+				<value>domain/StockType.hbm.xml</value>
+				<value>domain/Paddock.hbm.xml</value>
+				<value>domain/Corner.hbm.xml</value>
+				<value>domain/Todo.hbm.xml</value>
+				<value>domain/Grazing.hbm.xml</value>
+				<value>domain/Farm.hbm.xml</value>
+				<value>domain/StockCount.hbm.xml</value></list>
+		</property>
+	</bean>
+	
+	<!-- DAOs -->
+	<bean id="StockCountDAO" class="dao.impl.StockCountDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="BlockDAO" class="dao.impl.BlockDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="StockTypeDAO" class="dao.impl.StockTypeDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="PaddockDAO" class="dao.impl.PaddockDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="CornerDAO" class="dao.impl.CornerDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="TodoDAO" class="dao.impl.TodoDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="GrazingDAO" class="dao.impl.GrazingDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="FarmDAO" class="dao.impl.FarmDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- Services -->
+	<bean name="FarmService" class="service.impl.FarmService">
+		<property name="farmDAO">
+			<ref bean="FarmDAO"/>
+		</property>
+	</bean>
+	<bean name="BlockService" class="service.impl.BlockService">
+		<property name="blockDAO">
+			<ref bean="BlockDAO"/>
+		</property>
+	</bean>
+	<bean name="CornerService" class="service.impl.CornerService">
+		<property name="cornerDAO">
+			<ref bean="CornerDAO"/>
+		</property>
+	</bean>
+	<bean name="PaddockService" class="service.impl.PaddockService">
+		<property name="paddockDAO">
+			<ref bean="PaddockDAO"/>
+		</property>
+	</bean>
+	<bean name="StockTypeService" class="service.impl.StockTypeService">
+		<property name="stockTypeDAO">
+			<ref bean="StockTypeDAO"/>
+		</property>
+	</bean>
+	<bean name="StockCountService" class="service.impl.StockCountService">
+		<property name="stockcountDAO">
+			<ref bean="StockCountDAO"/>
+		</property>
+	</bean>
+	<bean name="TodoService" class="service.impl.TodoService">
+		<property name="todoDAO">
+			<ref bean="TodoDAO"/>
+		</property>
+	</bean>
+	<bean name="GrazingService" class="service.impl.GrazingService">
+		<property name="grazingDAO">
+			<ref bean="GrazingDAO"/>
+		</property>
+	</bean>
+	
+	<!-- Actions -->
+	<bean name="MapAction" class="action.MapAction">
+		<property name="cornerService">
+			<ref bean="CornerService"/>
+		</property>
+		<property name="paddockService">
+			<ref bean="PaddockService"/>
+		</property>
+	</bean>
+	
+	<bean name="InfoAction" class="action.InfoAction">
+		<property name="farmService">
+			<ref bean="FarmService"/>
+		</property>
+		<property name="paddockService">
+			<ref bean="PaddockService"/>
+		</property>
+		<property name="grazingService">
+			<ref bean="GrazingService"/>
+		</property>
+		<property name="todoService">
+			<ref bean="TodoService"/>
+		</property>
+		<property name="stockTypeService">
+			<ref bean="StockTypeService"/>
+		</property>
+		<property name="stockcountService">
+			<ref bean="StockCountService"/>
+		</property>
+	</bean>
+	
+	<bean name="PaddockAction" class="action.PaddockAction">
+		<property name="paddockService">
+			<ref bean="PaddockService"/>
+		</property>
+		<property name="cornerService">
+			<ref bean="CornerService"/>
+		</property>
+	</bean>
+	
+	<bean name="ControlAction" class="action.ControlAction">
+		<property name="farmService">
+			<ref bean="FarmService"/>
+		</property>
+	</bean>
+	
+</beans>

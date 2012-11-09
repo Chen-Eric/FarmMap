@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- use develop mode -->
+	<constant name="struts.devMode" value="true" />
+
+	<!-- use spring bean factory -->
+	<constant name="struts.objectFactory" value="spring" />
+
+	<!-- Basic Redirection and page dispacthing. -->
+	<package name="Control" namespace="/Control" extends="struts-default,json-default">
+		<action name="showFarmMap" class="ControlAction" method="showFarmMap">
+			<result name="success">/map.jsp</result>
+			<result name="error">/index.jsp</result>
+		</action>
+	</package>
+
+	<!-- Package DrawMap, design for query Lats&Lngs from DB and Draw the map. -->
+	<package name="DrawMap" namespace="/DrawMap" extends="struts-default,json-default">
+		<action name="DrawMap" class="MapAction" method="drawMap">
+			<result type="json" name="success">
+				<param name="root">paddocksFromDB</param>
+			</result>
+		</action>
+		<action name="AddPaddockBacisInfo" class="MapAction" method="addPaddockName">
+			<result type="json" name="success">
+				<param name="root">paddockBasicInfo</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- Package ShowInfo, design for query information from DB and show in 
+		the page -->
+	<package name="ShowInfo" namespace="/ShowInfo"
+		extends="struts-default,json-default">
+		<action name="ShowFarms" class="InfoAction" method="showFarms">
+			<result name="showFarms">/index.jsp</result>
+		</action>
+		<action name="ShowPaddockBasicInfo" class="InfoAction"
+			method="showPaddockBasicInfo">
+			<result type="json" name="success">
+				<param name="root">paddockBasicInfo</param>
+			</result>
+		</action>
+		<action name="ShowPaddockGrazings" class="InfoAction" method="showPaddockGrazings">
+			<result type="json" name="success">
+				<param name="root">paddockGrazings</param>
+			</result>
+		</action>
+		<action name="ShowPaddockTodos" class="InfoAction" method="showPaddockTodos">
+			<result type="json" name="success">
+				<param name="root">paddockTodos</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- Paddock Action -->
+	<package name="PaddockManager" namespace="/Paddock" extends="struts-default, json-default">
+		<action name="AddPaddock" class="PaddockAction" method="addPaddock">
+			
+		</action>
+		<action name="DeletePaddock" class="PaddockAction" method="deletePaddock">
+			
+		</action>
+	</package>
+</struts>

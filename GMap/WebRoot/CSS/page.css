@@ -1,0 +1,122 @@
+@CHARSET "UTF-8";
+html {
+	height: 100%;
+}
+
+body {
+	font: 12px Tahoma;
+	height: 100%;
+	margin: 0px aotu;
+	padding: 0px;
+	height: 100%;
+}
+
+
+#container {
+	width: 100%;
+}
+
+#Header {
+	background: #FFCC99;
+	width: 100%;
+	margin: 0 auto;
+	height: 5%;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#PageBody {
+	width: 99%;
+	margin: auto;
+	height: 99%;
+	position: absolute;
+}
+
+#map_canvas {
+	width: 73%;
+	height: 99%;
+	margin: 1%;
+	float: center;
+	position: relative;
+	-webkit-border-radius: 15px; 
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+	box-shadow: 7px 7px 3px;
+}
+
+#Sidebar {
+	background: #FFCC00;
+	width: 310px;
+	height: 99%;
+	margin: 1%;
+	float: left;
+	position: relative;
+	box-shadow: 7px 7px 3px;
+	-webkit-border-radius: 15px; 
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+#Infowindow {
+	font-size: 13px;
+	background: #bbcc66;
+	width: 93%;
+	height: 355px;
+	margin: 3%;
+	float: left;
+	position: absolute;
+	broder: 1px solid;
+	box-shadow: 2px 2px 3px;
+	-webkit-border-radius: 15px; 
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+#Footer {
+	background: #FFFC88;
+	width: 99%;
+	margin: 0 auto;
+	height: 50px;
+	text-align: center;
+}
+
+#ttt {
+	position: absolute;
+	box-shadow: 2px 2px 3px;
+	-webkit-border-radius: 15px; 
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.tabDivTable {
+	font-size: 12px;
+	weight: 350px;
+	overflow: auto;
+	text-align: center;
+}
+
+.tbody{
+	font-size: 10px;
+	text-align: left;
+	border: 1px solid;
+}
+
+#tddatein{
+	font-size: 15px;
+	weight: 30%;
+	margin-right: 10px;
+	text-align: center;
+}
+
+#tddateout{
+	font-size: 15px;
+	weight: 30%;
+	margin-right: 10px;
+	text-align: center;
+}
+
+#tdnote{
+	font-size: 15px;
+	weight: 40%;
+	text-align: center;
+}
