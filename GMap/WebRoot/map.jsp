@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sjg" uri="/struts-jquery-grid-tags"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -22,10 +23,11 @@
 <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 <meta http-equiv="description" content="This is my page">
 
+<!-- This line the key point to call the Struts2-jQuery-Plugin -->
+<sj:head jqueryui="true" jquerytheme="smoothness" />
+
 <link rel="stylesheet" type="text/css" href="CSS/button.css">
 <link rel="stylesheet" type="text/css" href="CSS/page.css">
-
-<script type="text/javascript" src="struts/js/base/jquery-1.7.2.min.js"></script>
 
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=false">
@@ -40,16 +42,23 @@
 	src="JavaScript/v3_epoly_sphericalArea.js">
 	
 </script>
-
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
 
+
+
 <!-- My JavaScript -->
+<script type="text/javascript" src="JavaScript/Control.js"></script>
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
-<script type="text/javascript" src="JavaScript/Control.js"></script>
 
-<sj:head jqueryui="true" jquerytheme="cupertino" />
+<script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
+<script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
+
+<script type="text/javascript">
+	
+</script>
+
 </head>
 
 <body onload="initialize()">
@@ -71,8 +80,14 @@
 				<button class="button rosy" class="button rosy"
 					onclick="undoLastMark()">Remove&nbsp;Last&nbsp;Corner</button>
 			</p>
+			<div class='tabular-data'>
+				<jsp:include page="paddockInfo.jsp" />				
+			</div>			
 		</div>
-		<div id="map_canvas"></div>
+		<div id="map_canvas" />
+	</div>
+	<div>
+		<s:debug/>
 	</div>
 </body>
 </html>

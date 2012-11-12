@@ -22,6 +22,8 @@ public interface IPaddockService {
 	
 	public void updatePaddock(Paddock paddock);
 	
+	public boolean findPaddockById(short pid, short fid);
+	
 	public List<Paddock> listPaddocksByFarmId(short farmId);
 	
 	public List<Paddock> listPaddocksByBlockId(domain.Block paddock);

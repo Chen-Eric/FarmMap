@@ -9,6 +9,8 @@ var mapCenter;
 var temp;
 var paddocksOnMap = new google.maps.MVCArray();
 
+
+
 function initialize() {
 	
 	mapCenter = new google.maps.LatLng(-39.70671, 174.96760);
@@ -30,11 +32,15 @@ function initialize() {
 	var markerIcon = new google.maps.Marker({
 		position: mapCenter,
 		icon: iconimage,
-		map:map,
+//		map:map,
 //		animation: BOUNCD,
 		clickable: true,
 		draggable: false,
 		visible: true
+	});
+	
+	$(document).ready(function() {
+		paddockBasicInfoManager();
 	});
 	
 }
@@ -77,7 +83,7 @@ function paddockBasicInfoManager() {
 	$.post(url, function(paddockInfoFromDB) {
 		//console.log(paddockInfoFromDB);
 		var jsonPaddocks = eval(paddockInfoFromDB);
-		console.log(jsonPaddocks);
+		//console.log(jsonPaddocks);
 		$.each(jsonPaddocks, function(index) {
 			//for paddock name.
 			var paddockCenter = new google.maps.LatLng(this.pCenterLat, this.pCenterLon);

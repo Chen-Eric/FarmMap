@@ -94,4 +94,17 @@ public class PaddockService implements IPaddockService {
 		return paddockDAO.findByProperty("block.Block_B_ID", block);
 	}
 
+	@Override
+	public boolean findPaddockById(short pid, short fid) {
+		PaddockId paddockId = new PaddockId();
+		paddockId.setPId(pid);
+		paddockId.setFarmFId(fid);
+		if (paddockDAO.findById(paddockId) != null) {
+			return true;
+		} else {
+			return false;			
+		}
+
+	}
+
 }

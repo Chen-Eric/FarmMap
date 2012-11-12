@@ -4,29 +4,32 @@
 package action;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import domain.Corner;
-import domain.CornerId;
 import domain.Paddock;
+import domain.PaddockId;
 
 /**
  * @author Chen
  * 
  */
+@SuppressWarnings("serial")
 public class PaddockAction extends BaseAction {
 
 	private String newPaddockCorners;
 	private Short farmId;
 	private Short selectedPId;
+	private String selectedPName;
+	private int newPId;
+	private String newPName;
 	private double newPaddockCenterLat;
 	private double newPaddockCenterLon;
-	private String p_description;
-	private short feedCapacity;
+	private String PDescription;
+	private int PFeedCapacity;
 
 	public String getNewPaddockCorners() {
 		return newPaddockCorners;
@@ -42,6 +45,30 @@ public class PaddockAction extends BaseAction {
 
 	public void setSelectedPId(Short selectedPId) {
 		this.selectedPId = selectedPId;
+	}
+
+	public String getSelectedPName() {
+		return selectedPName;
+	}
+
+	public void setSelectedPName(String selectedPName) {
+		this.selectedPName = selectedPName;
+	}
+
+	public int getNewPId() {
+		return newPId;
+	}
+
+	public void setNewPId(int newPId) {
+		this.newPId = newPId;
+	}
+
+	public String getNewPName() {
+		return newPName;
+	}
+
+	public void setNewPName(String newPName) {
+		this.newPName = newPName;
 	}
 
 	public double getNewPaddockCenterLat() {
@@ -60,26 +87,27 @@ public class PaddockAction extends BaseAction {
 		this.newPaddockCenterLon = newPaddockCenterLon;
 	}
 
-	public String getP_description() {
-		return p_description;
+	public String getPDescription() {
+		return PDescription;
 	}
 
-	public void setP_description(String p_description) {
-		this.p_description = p_description;
+	public void setPDescription(String pDescription) {
+		PDescription = pDescription;
 	}
 
-	public short getFeedCapacity() {
-		return feedCapacity;
+	public int getPFeedCapacity() {
+		return PFeedCapacity;
 	}
 
-	public void setFeedCapacity(short feedCapacity) {
-		this.feedCapacity = feedCapacity;
+	public void setPFeedCapacity(int pFeedCapacity) {
+		PFeedCapacity = pFeedCapacity;
 	}
 
 	/**
 	 * @author Chen
 	 * @return "showPaddockInfo"
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String addPaddock() {
 
 		System.out.println("JsonFromWeb: " + newPaddockCorners);
@@ -89,9 +117,9 @@ public class PaddockAction extends BaseAction {
 		Gson gson = new Gson();
 
 		farmId = (Short) session.get("farmId");
-		
+
 		short paddockCountRange = 10;
-		
+
 		// unserialize the json object of corners.
 		List<Corner> lc = gson.fromJson(newPaddockCorners,
 				new TypeToken<List<Corner>>() {
@@ -103,7 +131,7 @@ public class PaddockAction extends BaseAction {
 		for (short i = 1; i <= paddockCountRange; i++) {
 			pidVavancy.add(i);
 		}
-		
+
 		System.out.println(pidVavancy.size() + "_vacancy!");
 		// Compare the current paddock and the ideal paddock list, find out the vacancy.
 		List<Paddock> lp = paddockService.listPaddocksByFarmId(farmId);
@@ -115,16 +143,16 @@ public class PaddockAction extends BaseAction {
 				}
 			}
 		}
-		
+
 		System.out.println("How many paddock vacancy: " + pidVavancy.size());
-		
+
 		if (pidVavancy.size() > 0) {
 			Short newPid = (Short) pidVavancy.get(0);
 			System.out.println("The new Paddock FID : " + farmId);
 			System.out.println("The new Paddock PID: " + newPid);
 			paddockService.addPaddockByFarmId(farmId, newPid, "f" + farmId
 					+ "p" + newPid, newPaddockCenterLat, newPaddockCenterLon,
-					null, (short)10);
+					null, (short) 10);
 			for (Corner corner : lc) {
 				cornerService.addCorner(farmId, newPid, corner);
 			}
@@ -146,5 +174,80 @@ public class PaddockAction extends BaseAction {
 		}
 
 		return SUCCESS;
+	}
+
+	/**
+	 * @author Chen
+	 * @version 1.1.2
+	 */
+	@SuppressWarnings("unchecked")
+	public String editPaddock() {
+
+		farmId = (Short) session.get("farmId");
+
+		System.out.println("Edit paddock FarmID: " + farmId);
+		System.out.println("NewPID: " + newPId);
+		System.out.println("Selected PID: " + selectedPId);
+
+		List<Paddock> lp = (List<Paddock>) session.get("paddocksFromDBonPage");
+
+		if (newPId == selectedPId) {
+
+			System.out.println("Same pid! Just Update the previous one.");
+			for (Paddock paddock : lp) {
+				if (paddock.getId().getPId().equals((short) selectedPId)) {
+					paddock.setPDescription(PDescription);
+					if (!newPName.equals("")) {
+						paddock.setPName(newPName);
+					}
+					paddock.setPFeedCapacity((short) PFeedCapacity);
+					paddockService.updatePaddock(paddock);
+				}
+			}
+			return SUCCESS;
+		} else {
+
+			Paddock newPaddock = new Paddock();
+			boolean isNewPIDused = false;
+			
+			System.out.println("different newPID!+++++");
+			for (Paddock paddock : lp) {
+				if (paddock.getId().getPId().equals((short) newPId)) {
+					System.out.println("Used Paddock ID.....");
+					isNewPIDused = true;
+					break;
+				} else {
+					isNewPIDused = false;
+					newPaddock = paddock;
+
+					if (!newPName.equals("")) {
+						newPName = paddock.getPName();
+					}
+					System.out.println("NewPName: " + newPName);
+				}
+			}
+
+			if (isNewPIDused) {
+				System.out.println("Is used, just refresh this page.");
+				return ERROR;
+			} else {
+				System.out.println("Change to the newPID!");
+				System.out.println("++++" + newPName + "++++");
+				List<Corner> lc = cornerService.listCornersByPaddockId(farmId,
+						selectedPId);
+				paddockService.deletePaddock(selectedPId, farmId);
+				paddockService.addPaddockByFarmId(farmId, (short) newPId,
+						newPName, newPaddock.getPCenterLat(),
+						newPaddock.getPCenterLon(),
+						newPaddock.getPDescription(),
+						newPaddock.getPFeedCapacity());
+				for (Corner corner : lc) {
+					System.out.println(corner.getId());
+					cornerService.addCorner(farmId, (short) newPId, corner);
+				}
+				return SUCCESS;
+			}
+		}
+
 	}
 }

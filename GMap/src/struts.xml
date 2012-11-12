@@ -57,10 +57,26 @@
 	<!-- Paddock Action -->
 	<package name="PaddockManager" namespace="/Paddock" extends="struts-default, json-default">
 		<action name="AddPaddock" class="PaddockAction" method="addPaddock">
-			
 		</action>
+		
 		<action name="DeletePaddock" class="PaddockAction" method="deletePaddock">
-			
+		</action>
+		
+		<action name="EditPaddock" class="PaddockAction" method="editPaddock">
+			<result name="success" type="redirect">/map.jsp</result>
+			<result name="error" type="redirect">/map.jsp</result>
 		</action>
 	</package>
+	
+	<!-- Paddock Grid Action, still during test. -->
+	<package name="PaddockGrid" namespace="/PaddockGrid" extends="json-default,struts-default">
+		<action name="ShowPaddockGrid" class="PaddockGridAction" method="showPaddockGrid">
+			<result name="success" type="json">
+				<param name="includeProperties">gridModel,rows,page,total,record</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	
 </struts>

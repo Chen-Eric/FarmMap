@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.mapping.Array;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import common.CornerAdapter;
@@ -20,6 +18,7 @@ import domain.*;
 /**
  * @author Chen
  */
+@SuppressWarnings("serial")
 public class MapAction extends BaseAction {
 	
 	private Short farmId;
@@ -50,6 +49,7 @@ public class MapAction extends BaseAction {
 	 * @author Chen
 	 * @return "darwMap"
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String drawMap() {
 
 		farmId = (Short) session.get("farmId");
@@ -69,7 +69,7 @@ public class MapAction extends BaseAction {
 			System.out.println(listPaddocksOfFarm.size() + "_paddocks");
 			GsonBuilder gsonBuilder = new GsonBuilder();
 			Gson gson = gsonBuilder.registerTypeAdapter(Corner.class, new CornerAdapter()).create();
-			
+
 			List jsonCorners = new ArrayList();
 			
 			for (Iterator iterator = listPaddocksOfFarm.iterator(); iterator
@@ -83,7 +83,10 @@ public class MapAction extends BaseAction {
 					jsonCorners.add(gson.toJson(corner));
 				}
 			}
+//			cookies.put("test", "test");
+//			response.addCookie(new Cookie("test", "test"));
 			this.paddocksFromDB = jsonCorners.toString();
+			session.put("paddocksFromDBonPage", listPaddocksOfFarm);
 			System.out.println(paddocksFromDB);
 			return SUCCESS;
 		}

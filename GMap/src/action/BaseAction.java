@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.interceptor.CookiesAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
@@ -31,7 +32,7 @@ import service.ITodoService;
  * 
  */
 public class BaseAction extends ActionSupport implements ServletContextAware,
-		SessionAware, ServletRequestAware, ServletResponseAware {
+		SessionAware, ServletRequestAware, ServletResponseAware, CookiesAware {
 
 	/**
 	 * @author Chen
@@ -43,6 +44,7 @@ public class BaseAction extends ActionSupport implements ServletContextAware,
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected Map<String, Object> session;
+	protected Map<String, String> cookies;
 	
 	//Services.
 	protected IBlockService blockService;
@@ -53,6 +55,8 @@ public class BaseAction extends ActionSupport implements ServletContextAware,
 	protected IStockCountService stockCountService;
 	protected IStockTypeService stockTypeService;
 	protected ITodoService todoService;
+	
+	//For json format results.
 	
 	
 	@Override
@@ -161,6 +165,19 @@ public class BaseAction extends ActionSupport implements ServletContextAware,
 
 	public Map<String, Object> getSession() {
 		return session;
+	}
+
+	public IStockCountService getStockCountService() {
+		return stockCountService;
+	}
+
+	public void setStockCountService(IStockCountService stockCountService) {
+		this.stockCountService = stockCountService;
+	}
+
+	@Override
+	public void setCookiesMap(Map<String, String> map) {
+		this.cookies = map;
 	}
 
 }

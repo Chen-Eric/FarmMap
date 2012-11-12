@@ -38,6 +38,11 @@ function completePaddock() {
 	}
 	markersArray.clear();
 	google.maps.event.removeListener(myMouseListener);
+	
+	//To reload the paddock info jsp.
+	$(document).ready(function() {
+		update_tabular_data();
+	});
 }
 
 // place a new marker on the mouse click position
@@ -109,7 +114,7 @@ function addPaddock(path) {
 	});	
 }
 
-//user ajax to delete the selected paddock and redraw the map_canvas.
+//using ajax to delete the selected paddock and redraw the map_canvas.
 function deletePaddock(selectedPId) {
 	//alert(selectedPId);
 	var url = "Paddock/DeletePaddock";
@@ -120,8 +125,43 @@ function deletePaddock(selectedPId) {
 		var fid = 1;
 		initialize(fid);
 	});
+	//To reload the paddock info jsp.
+	$(document).ready(function() {
+		update_tabular_data();
+	});
 }
 
 function deleteSelectedPaddock() {
 	deletePaddock($("#map_canvas").data("focusPaddockID"));
+}
+
+//using jQuery-Grid to build up a grid to update the names of those paddocks.
+function paddockGridTest() {
+	$("#gridTable").jqGrid({
+		url: "PaddockGrid/ShowPaddockGrid",
+		datatype: "json",
+		mtype: "GET",
+		height: 150,
+		autowidth: true,
+		colModel: [
+	          {name:"pid",index:"pid",label:"PID",width:40},
+		      {name:"pName",index:"pName",label:"pName",width:80,sortable:false},
+		      {name:"pCenterLat",index:"pCenterLat",label:"pCenterLat",width:120,sortable:false},
+		      {name:"pCenterLon",index:"pCenterLon",label:"pCenterLon",width:120,sortable:false},
+		      {name:"pDescription",index:"pDescription",label:"pDescription",width:80,sortable:false},
+		      {name:"pFeedCapability",index:"pFeedCapability",label:"pFeedCapability",width:160,sortable:false}
+		],
+		viewrecords: true,
+		rowNum: 15,
+		rowList: [15,20,25],
+		prmNames: {search: "search"},	//(1)
+		jsonReader: {
+			root:"gridModel",		// (2)
+			records: "record",		// (3)
+			repeatitems : false		// (4)
+		},
+		pager: "#gridPager",
+		caption: "Paddock Infomation",
+		hidegrid: false
+	});
 }

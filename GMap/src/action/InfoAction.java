@@ -21,6 +21,16 @@ import domain.Todo;
  */
 public class InfoAction extends BaseAction {
 
+	/**
+	 * @author Chen
+	 * @serial Default
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int totalPages;
+	private int currentPage;
+	private int totalRecords;
+	
 	private String paddockBasicInfo;
 	private String paddockGrazings;
 	private String paddockTodos;
@@ -53,6 +63,30 @@ public class InfoAction extends BaseAction {
 
 	public void setPaddockId(int paddockId) {
 		this.paddockId = paddockId;
+	}
+
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalRecords() {
+		return totalRecords;
+	}
+
+	public void setTotalRecords(int totalRecords) {
+		this.totalRecords = totalRecords;
 	}
 
 	/**
@@ -120,5 +154,5 @@ public class InfoAction extends BaseAction {
 		System.out.println("Todos: " + gson.toJson(lt));
 		return SUCCESS;
 	}
-
+	
 }

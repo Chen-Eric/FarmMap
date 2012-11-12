@@ -51,11 +51,11 @@ function showPaddockTodos(paddockTodos) {
 //J-Grid Test
 function jqTest() {
 	$("#realtest").jqGrid({
-		height: "auto",
+		height: 200,
 		weidth: "auto",
 		url : "ShowInfo/ShowPaddockGrazings",
 		datatype : "json",
-		postData : {paddockId : 1, farmId : 1},
+		postData : {paddockId : 1},
 		mtype : "POST",
 		colNames:['G_Date_In','G_Date_Out','note','Done?'],
 		colModel:[{name:'G_Date_In',index:'G_Date_In',width:150},

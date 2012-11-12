@@ -195,3 +195,18 @@
 	background: -moz-linear-gradient(top,  #aa1317,  #ed1c24);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#aa1317', endColorstr='#ed1c24');
 }
+
+#update_button{
+	font-size: 12px; 
+	width: auto;
+	height: 22px;
+	padding: 5px;
+}
+
+#farmId{
+	font-size: 14px; 
+	width: 6.5em;
+	height: 2em;
+}
+
+

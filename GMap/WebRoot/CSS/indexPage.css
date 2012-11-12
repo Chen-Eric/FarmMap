@@ -1,19 +1,16 @@
-@CHARSET "UTF-8";
-html,body{margin:0;padding:10px}
-body{font: 100% arial,sans-serif;text-align:center}
+html,body{margin:0;padding:0}
+body{font: 76% arial,sans-serif}
 p{margin:0 10px 10px}
 a{display:block;color: #981793;padding:10px}
-div#header h1{height:80px;line-height:80px;margin:0;
-  padding-left:10px;background: #EEE;color: #79B30B}
-div#container{text-align:left}
+div#header h1{height:100px;line-height:100px;margin:0;
+  padding-left:20px;background: #EEE;color: #79B30B}
 div#content p{line-height:1.4}
-div#navigation{background:#B9CAFF;height:auto;}
-div#extra{background:#FF8539;height:auto;}
+div#navigation{background:#B9CAFF}
+div#extra{background:#FF8539}
 div#footer{background: #333;color: #FFF}
 div#footer p{margin:0;padding:5px 10px}
-div#container{width:700px;margin:0 auto}
-div#wrapper{float:left;width:100%}
-div#content{margin-left: 300px}
-div#navigation{float:left;width:150px;margin-left:-700px}
-div#extra{float:left;width:150px;margin-left:-550px}
-div#footer{clear:left;width:100%}
+div#wrapper{float:right;width: 100%;margin-left: -400px}
+div#content{margin-left: 400px}
+div#navigation{float:right;width:200px}
+div#extra{float:right;width:200px}
+div#footer{height:58px;line-height:45px;margin:0;clear:right;width:100%;}

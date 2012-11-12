@@ -69,7 +69,7 @@ public class HSTest {
 		
 		//Test.
 		short farmId = 1;
-		short paddockId = 3;
+		short paddockId = 1;
 		
 //		List<Paddock> lp = paddockService.listPaddocksByFarmId(farmId);
 //		System.out.println(lp.size());
@@ -109,8 +109,7 @@ public class HSTest {
 		
 //		stockcountService.deleteStockCount(sc);
 		
-		List<Paddock> lp = paddockService.listPaddocksByFarmId(farmId);
-		System.out.println(lp.size());
+		System.out.println(paddockService.findPaddockById(paddockId, farmId));
 		
 	}
 

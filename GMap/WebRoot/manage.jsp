@@ -26,35 +26,30 @@
 <link rel="stylesheet" type="text/css" href="CSS/page.css">
 <link rel="stylesheet" type="text/css" href="CSS/ui.jqgrid.css">
 
-<!-- <link rel="stylesheet" type="text/css" href="CSS/jquery-ui-1.9.1.custom.css">
-<script type="text/javascript" src="JavaScript/jquery-ui-1.9.1.custom.min.js"></script> -->
-
-<script type="text/javascript" src="struts/js/base/jquery-1.7.2.min.js"></script>
+<!-- This line the key point to call the Struts2-jQuery-Plugin -->
+<sj:head jqueryui="true" jquerytheme="smoothness" />
 
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=false">
-	
 </script>
 
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false">
-	
 </script>
 <script type="text/javascript"
 	src="JavaScript/v3_epoly_sphericalArea.js">
-	
 </script>
 
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
 <script type="text/javascript" src="JavaScript/maplabel-compiled.js"></script>
 
 
-<sj:head jqueryui="true" jquerytheme="smoothness" />
-
+<!-- My JavaScript -->
+<script type="text/javascript" src="JavaScript/Control.js"></script>
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
-<script type="text/javascript" src="JavaScript/Control.js"></script>
+
 
 <script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
 <script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>

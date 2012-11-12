@@ -172,4 +172,10 @@
 		</property>
 	</bean>
 	
+	<!-- Beans for Grids -->
+	<bean name="PaddockGridAction" class="action.PaddockGridAction">
+		<property name="paddockService">
+			<ref bean="PaddockService"/>
+		</property>
+	</bean>
 </beans>
