@@ -28,6 +28,7 @@ public class PaddockAdapter implements JsonSerializer<Paddock>{
 		jo.addProperty("pCenterLon", paddock.getPCenterLon());
 		jo.addProperty("pDescription", paddock.getPDescription());
 		jo.addProperty("pFeedCapability", paddock.getPFeedCapacity());
+		jo.addProperty("pArea", paddock.getPArea());
 		
 		return jo;
 	}

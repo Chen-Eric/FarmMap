@@ -16,5 +16,11 @@
         <property name="FDescription" type="java.lang.String">
             <column name="F_Description" />
         </property>
+        <property name="FCenterLat" type="double">
+        		<column name="F_Center_Lat"/>
+        </property>
+        <property name="FCenterLon" type="double">
+        		<column name="F_Center_Lon"/>
+        </property>
     </class>
 </hibernate-mapping>

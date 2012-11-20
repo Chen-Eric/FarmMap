@@ -36,5 +36,15 @@ public class ControlAction extends BaseAction {
 		}
 	}
 	
+	public String showFarmMapOnTest(){
+		System.out.println(Integer.valueOf(farmId).equals(null));
+		if (Integer.valueOf(farmId).equals(null)) {
+			return ERROR;
+		} else {
+			System.out.println("ControlAction: " + farmId);
+			session.put("farmId", (short)farmId);
+			return SUCCESS;
+		}
+	}
 	
 }

@@ -44,13 +44,19 @@
 
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
 
-
+<script type="text/javascript" src="JavaScript/jquery.flip.js"></script>
+<script type="text/javascript" src="JavaScript/jquery-ui-1.9.1.custom.min.js"></script>
 
 <!-- My JavaScript -->
 <script type="text/javascript" src="JavaScript/Control.js"></script>
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
+<script type="text/javascript" src="JavaScript/Navigation.js"></script>
+
+
+
+
 
 <script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
 <script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
@@ -80,7 +86,10 @@
 				<button class="button rosy" onclick="undoLastMark()">Remove&nbsp;Last&nbsp;Corner</button>
 			</p>
 			<p align="center">
-				<button class="button green"	onclick="forwardPage('stockType')">Stock&nbsp;Type&nbsp;Manage</button>
+				<button class="button green"	onclick="mapManageFlip()">Map&nbsp;Manage</button>
+			</p>
+			<p align="center">
+				<button class="button white"	onclick="stockTypeManageFlip()">Stock&nbsp;Type&nbsp;Manage</button>
 			</p>
 			<div class='tabular-data'>
 				<jsp:include page="paddockInfo.jsp" />				

@@ -10,7 +10,11 @@
 	<!-- Basic Redirection and page dispacthing. -->
 	<package name="Control" namespace="/Control" extends="struts-default,json-default">
 		<action name="showFarmMap" class="ControlAction" method="showFarmMap">
-			<result name="success">/map.jsp</result>
+			<result name="success" type="redirect">/map.jsp</result>
+			<result name="error" type="redirect">/index.jsp</result>
+		</action>
+		<action name="showFarmMap" class="ControlAction" method="showFarmMapOnTest">
+			<result name="success">/test.jsp</result>
 			<result name="error">/index.jsp</result>
 		</action>
 	</package>
@@ -22,7 +26,7 @@
 				<param name="root">paddocksFromDB</param>
 			</result>
 		</action>
-		<action name="AddPaddockBacisInfo" class="MapAction" method="addPaddockName">
+		<action name="AddPaddockBacisInfo" class="MapAction" method="addPaddockBacisInfo">
 			<result type="json" name="success">
 				<param name="root">paddockBasicInfo</param>
 			</result>
@@ -58,13 +62,16 @@
 	<package name="PaddockManager" namespace="/Paddock" extends="struts-default, json-default">
 		<action name="AddPaddock" class="PaddockAction" method="addPaddock">
 		</action>
-		
 		<action name="DeletePaddock" class="PaddockAction" method="deletePaddock">
 		</action>
-		
 		<action name="EditPaddock" class="PaddockAction" method="editPaddock">
 			<result name="success" type="redirect">/map.jsp</result>
 			<result name="error" type="redirect">/map.jsp</result>
+		</action>
+		<action name="ShowPaddock" class="PaddockAction" method="showSelectedPaddock">
+			<result name="success" type="json">
+				<param name="root">selectedPaddock</param>
+			</result>
 		</action>
 	</package>
 	
@@ -79,4 +86,14 @@
 		</action>
 	</package>
 	
+	<package name="StockManager" namespace="/StockManage" extends="struts-default">
+		<action name="StockManage" class="StockTypeAction">
+			<result name="add" type="redirect">/stockType.jsp</result>
+			<result name="update" type="redirect">/stockType.jsp</result>
+			<result name="delete" type="redirect">/stockType.jsp</result>
+		</action>
+		<action name="showStockTypes" method="showStockType" class="StockTypeAction">
+			<result name="show">/stockType.jsp</result>
+		</action>
+	</package>
 </struts>

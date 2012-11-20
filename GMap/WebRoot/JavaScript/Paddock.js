@@ -89,29 +89,32 @@ function addPaddock(path) {
 	path.forEach(function(item, index) {
 		polyBound.extend(path.getAt(index));
 	});
-	console.log(polyBound.getCenter());
+	var polyArea = (google.maps.geometry.spherical.computeArea(path)/10000).toFixed(2);
+	console.log(polyArea);
 	
-	// alert(path.getAt(0).lat());
 	var jsonPath = "[";
 	path.forEach(function(item, index) {
 		jsonPath += "{"+ "\"" + "CLat" + "\"" + ":" + path.getAt(index).lat() + ",\"CLon\":"
 				+ path.getAt(index).lng() + "}" + ",";
 	});
-	//alert(jsonPath.lastIndexOf(','));
+
 	jsonPath = jsonPath.substring(0, jsonPath.lastIndexOf(','));
 	jsonPath += "]";
-	//alert(jsonPath);
 
 	var url = "Paddock/AddPaddock";
 	var param = {
 		newPaddockCorners : jsonPath,
 		newPaddockCenterLat : polyBound.getCenter().lat(),
 		newPaddockCenterLon : polyBound.getCenter().lng(),
+		newPadoockArea : polyArea
 	};
 	$.post(url, param, function() {
-		var fid = 1;
-		initialize(fid);
+		initialize();
 	});	
+}
+
+function deleteSelectedPaddock() {
+	deletePaddock($("#map_canvas").data("focusPaddockID"));
 }
 
 //using ajax to delete the selected paddock and redraw the map_canvas.
@@ -122,8 +125,7 @@ function deletePaddock(selectedPId) {
 			selectedPId : selectedPId,
 	};
 	$.post(url, param, function() {
-		var fid = 1;
-		initialize(fid);
+		initialize();
 	});
 	//To reload the paddock info jsp.
 	$(document).ready(function() {
@@ -131,8 +133,19 @@ function deletePaddock(selectedPId) {
 	});
 }
 
-function deleteSelectedPaddock() {
-	deletePaddock($("#map_canvas").data("focusPaddockID"));
+//Show selected paddock basic info in a jsp page, load it into main page.
+function showSelectedPaddockInfo() {
+	console.log("SelectedPID: " + $("#map_canvas").data("focusPaddockID"));
+	var url = "Paddock/ShowPaddock";
+	var param = {
+			selectedPId: $("#map_canvas").data("focusPaddockID")
+	};
+	$.getJSON(url, param, function(singlePaddock) {
+		console.log(singlePaddock);
+		$(document).ready(function() {
+			update_tabular_data();
+		});
+	});
 }
 
 //using jQuery-Grid to build up a grid to update the names of those paddocks.

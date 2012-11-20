@@ -16,6 +16,7 @@ public class Paddock implements java.io.Serializable {
 	private Double PCenterLon;
 	private String PDescription;
 	private Short PFeedCapacity;
+	private Double PArea;
 
 	// Constructors
 
@@ -32,7 +33,7 @@ public class Paddock implements java.io.Serializable {
 	/** full constructor */
 	public Paddock(PaddockId id, Short blockBId, Short blockFarmFId,
 			String PName, Double PCenterLat, Double PCenterLon,
-			String PDescription, Short PFeedCapacity) {
+			String PDescription, Short PFeedCapacity, Double PArea) {
 		this.id = id;
 		this.blockBId = blockBId;
 		this.blockFarmFId = blockFarmFId;
@@ -41,6 +42,7 @@ public class Paddock implements java.io.Serializable {
 		this.PCenterLon = PCenterLon;
 		this.PDescription = PDescription;
 		this.PFeedCapacity = PFeedCapacity;
+		this.PArea = PArea;
 	}
 
 	// Property accessors
@@ -107,6 +109,14 @@ public class Paddock implements java.io.Serializable {
 
 	public void setPFeedCapacity(Short PFeedCapacity) {
 		this.PFeedCapacity = PFeedCapacity;
+	}
+
+	public Double getPArea() {
+		return PArea;
+	}
+
+	public void setPArea(Double pArea) {
+		PArea = pArea;
 	}
 
 }

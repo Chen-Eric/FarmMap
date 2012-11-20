@@ -12,6 +12,8 @@ public class Farm implements java.io.Serializable {
 	private Short FId;
 	private String FName;
 	private String FDescription;
+	private Double FCenterLat;
+	private Double FCenterLon;
 
 	// Constructors
 
@@ -54,6 +56,22 @@ public class Farm implements java.io.Serializable {
 
 	public void setFDescription(String FDescription) {
 		this.FDescription = FDescription;
+	}
+
+	public Double getFCenterLat() {
+		return FCenterLat;
+	}
+
+	public void setFCenterLat(Double fCenterLat) {
+		FCenterLat = fCenterLat;
+	}
+
+	public Double getFCenterLon() {
+		return FCenterLon;
+	}
+
+	public void setFCenterLon(Double fCenterLon) {
+		FCenterLon = fCenterLon;
 	}
 
 }

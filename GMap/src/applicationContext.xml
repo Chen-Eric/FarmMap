@@ -172,4 +172,10 @@
 		</property>
 	</bean>
 	
+	<bean name="StockTypeAction" class="action.StockTypeAction">
+		<property name="stockTypeService">
+			<ref bean="StockTypeService"/>
+		</property>
+	</bean>
+	
 </beans>

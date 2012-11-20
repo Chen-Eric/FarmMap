@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import common.PaddockAdapter;
 
 import domain.Corner;
 import domain.Paddock;
@@ -30,6 +32,9 @@ public class PaddockAction extends BaseAction {
 	private double newPaddockCenterLon;
 	private String PDescription;
 	private int PFeedCapacity;
+	private Double selectedPArea;	
+	private Double newPadoockArea;
+	private String selectedPaddock;
 
 	public String getNewPaddockCorners() {
 		return newPaddockCorners;
@@ -103,9 +108,53 @@ public class PaddockAction extends BaseAction {
 		PFeedCapacity = pFeedCapacity;
 	}
 
+
+	public Double getSelectedPArea() {
+		return selectedPArea;
+	}
+
+	public void setSelectedPArea(Double selectedPArea) {
+		this.selectedPArea = selectedPArea;
+	}
+
+	public Double getNewPadoockArea() {
+		return newPadoockArea;
+	}
+
+	public void setNewPadoockArea(Double newPadoockArea) {
+		this.newPadoockArea = newPadoockArea;
+	}
+
+	public String getSelectedPaddock() {
+		return selectedPaddock;
+	}
+
+	public void setSelectedPaddock(String selectedPaddock) {
+		this.selectedPaddock = selectedPaddock;
+	}
+
 	/**
 	 * @author Chen
-	 * @return "showPaddockInfo"
+	 */
+	public String showSelectedPaddock(){
+		
+		farmId = (Short) session.get("farmId");
+		System.out.println("selectedPId_In_Paddok_Action: " + selectedPId);
+		
+		Paddock singlePaddock = paddockService.findPaddockByFIDandPID(selectedPId, farmId);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.registerTypeAdapter(Paddock.class, new PaddockAdapter()).create();
+		
+		this.selectedPaddock = gson.toJson(singlePaddock);
+		session.remove("selectedPaddock");
+		session.put("singlePaddock", singlePaddock);
+		return SUCCESS;
+	}
+	
+	/**
+	 * @author Chen
+	 * @return "addPaddock"
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String addPaddock() {
@@ -118,7 +167,7 @@ public class PaddockAction extends BaseAction {
 
 		farmId = (Short) session.get("farmId");
 
-		short paddockCountRange = 10;
+		short paddockCountRange = 100;
 
 		// unserialize the json object of corners.
 		List<Corner> lc = gson.fromJson(newPaddockCorners,
@@ -152,7 +201,7 @@ public class PaddockAction extends BaseAction {
 			System.out.println("The new Paddock PID: " + newPid);
 			paddockService.addPaddockByFarmId(farmId, newPid, "f" + farmId
 					+ "p" + newPid, newPaddockCenterLat, newPaddockCenterLon,
-					null, (short) 10);
+					null, (short) 10, newPadoockArea);
 			for (Corner corner : lc) {
 				cornerService.addCorner(farmId, newPid, corner);
 			}
@@ -240,7 +289,8 @@ public class PaddockAction extends BaseAction {
 						newPName, newPaddock.getPCenterLat(),
 						newPaddock.getPCenterLon(),
 						newPaddock.getPDescription(),
-						newPaddock.getPFeedCapacity());
+						newPaddock.getPFeedCapacity(),
+						newPaddock.getPArea());
 				for (Corner corner : lc) {
 					System.out.println(corner.getId());
 					cornerService.addCorner(farmId, (short) newPId, corner);

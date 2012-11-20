@@ -59,6 +59,7 @@ public class HSTest {
 		BlockDAO blockDAO = (BlockDAO) ctx.getBean("BlockDAO");
 		PaddockService paddockService = (PaddockService) ctx.getBean("PaddockService");
 		StockTypeService stockTypeService = (StockTypeService) ctx.getBean("StockTypeService");
+		StockTypeDAO stockTypeDAO = (StockTypeDAO) ctx.getBean("StockTypeDAO");
 		StockCountService stockcountService = (StockCountService) ctx.getBean("StockCountService");
 		TodoService todoService = (TodoService) ctx.getBean("TodoService"); 
 		TodoDAO todoDAO = (TodoDAO) ctx.getBean("TodoDAO");
@@ -98,19 +99,23 @@ public class HSTest {
 		
 //		paddockService.deletePaddock(paddockId, farmId);
 		
-		StockType stockType = new StockType("beef", 10);
-		
-		StockCountId scid = new StockCountId();
-		scid.setGrazingGId(4);
-		scid.setStockTypeSId((short)1);
-		StockCount sc = new StockCount();
-		sc.setId(scid);
-		sc.setScCount("sheep");
-		
+//		StockType stockType = new StockType("beef", 10);
+//		
+//		StockCountId scid = new StockCountId();
+//		scid.setGrazingGId(4);
+//		scid.setStockTypeSId((short)1);
+//		StockCount sc = new StockCount();
+//		sc.setId(scid);
+//		sc.setScCount("sheep");
+//		
 //		stockcountService.deleteStockCount(sc);
+//		
+//		System.out.println(paddockService.findPaddockById(paddockId, farmId));
 		
-		System.out.println(paddockService.findPaddockById(paddockId, farmId));
-		
+		StockType stockType = new StockType();
+		stockType.setSId((short) 4);
+		stockTypeService.deleteStockType((short) 4);
+//		stockTypeDAO.delete(stockType);
 	}
 
 }

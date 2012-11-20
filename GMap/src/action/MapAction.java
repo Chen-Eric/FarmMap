@@ -27,8 +27,6 @@ public class MapAction extends BaseAction {
 	
 	private String paddockBasicInfo;
 
-	
-
 	public String getPaddocksFromDB() {
 		return paddocksFromDB;
 	}
@@ -86,13 +84,13 @@ public class MapAction extends BaseAction {
 //			cookies.put("test", "test");
 //			response.addCookie(new Cookie("test", "test"));
 			this.paddocksFromDB = jsonCorners.toString();
-			session.put("paddocksFromDBonPage", listPaddocksOfFarm);
+//			session.put("paddocksFromDBonPage", listPaddocksOfFarm);
 			System.out.println(paddocksFromDB);
 			return SUCCESS;
 		}
 	}
 	
-	public String addPaddockName(){
+	public String addPaddockBacisInfo(){
 		
 		System.out.println("Add paddockBasicInfo...");
 		

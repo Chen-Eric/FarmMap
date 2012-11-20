@@ -35,5 +35,8 @@
         <property name="PFeedCapacity" type="java.lang.Short">
             <column name="P_FeedCapacity" />
         </property>
+        <property name="PArea" type="double">
+        		<column name="P_Area"/>
+        </property>
     </class>
 </hibernate-mapping>

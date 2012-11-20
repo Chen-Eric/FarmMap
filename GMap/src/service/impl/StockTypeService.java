@@ -66,4 +66,26 @@ public class StockTypeService implements IStockTypeService {
 		return stockTypeDAO.findAll();
 	}
 
+	@Override
+	public void addStockType(String stockType, int stockUnits) {
+		StockType st = new StockType(stockType, stockUnits);
+		stockTypeDAO.save(st);
+	}
+
+	@Override
+	public void deleteStockType(short stockTypeID) {
+		StockType stockType = stockTypeDAO.findById(stockTypeID);
+		stockTypeDAO.delete(stockType);
+	}
+
+	@Override
+	public void updateStockType(short sid, String sType, int sUnit) {
+		StockType stockType = new StockType();
+		stockType.setSId(sid);
+		stockType.setSType(sType);
+		stockType.setStockUnits(sUnit);
+		
+		stockTypeDAO.updateStockType(stockType);
+	}
+
 }

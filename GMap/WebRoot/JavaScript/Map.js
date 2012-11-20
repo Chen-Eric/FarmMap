@@ -9,8 +9,6 @@ var mapCenter;
 var temp;
 var paddocksOnMap = new google.maps.MVCArray();
 
-
-
 function initialize() {
 	
 	mapCenter = new google.maps.LatLng(-39.70671, 174.96760);
@@ -99,11 +97,11 @@ function paddockBasicInfoManager() {
 				zIndex: 1,
 				map: map
 			});
-			console.log(paddockInfo);
+//			console.log(paddockInfo);
 			
 			//for paddock feed capacity.
-			var paddockCenter = new google.maps.LatLng(this.pCenterLat-0.00017, this.pCenterLon);
-			var pName = this.pName;
+			var paddockCenter = new google.maps.LatLng(this.pCenterLat+0.00017, this.pCenterLon);
+			var pName = this.pid;
 			var paddockInfo = new MapLabel({
 				text: pName,
 				position: paddockCenter,
@@ -114,9 +112,23 @@ function paddockBasicInfoManager() {
 				strokeColor:'#CCccFF',
 				map: map
 			});
+			
+			//for paddock feed capacity.
+			var paddockArea = new google.maps.LatLng(this.pCenterLat-0.00017, this.pCenterLon);
+			var paddockInfo = new MapLabel({
+				text: this.pArea,
+				position: paddockArea,
+				fontsize: 12,
+				maxZoom: 18,
+				minZoom: 16,
+				zIndex: 1,
+				strokeColor:'#CCccbb',
+				map: map
+			});
 		});
 	});
 }
+
 
 // Paddock Drawer
 function drawPaddock(path, paddockId) {
@@ -145,7 +157,7 @@ function drawPaddock(path, paddockId) {
 		
 		$("#map_canvas").data("focusPaddockID", this.get("pid"));
 		
-		//alert($("#map_canvas").data("focusPaddockID"));
+		showSelectedPaddockInfo();
 		
 	});
 	tempVariable.setMap(map);
@@ -178,4 +190,6 @@ function highLightPaddock(selectedPaddockID) {
 		}
 	});
 
-}
+} 
+
+

@@ -34,7 +34,7 @@ public class PaddockService implements IPaddockService {
 	 */
 	@Override
 	public void addPaddockByFarmId(short fid, short pid, String pName,
-			Double lat, Double lon, String p_description, short feedCapacity) {
+			Double lat, Double lon, String p_description, short feedCapacity, Double area) {
 		PaddockId paddockId = new PaddockId(pid, fid);
 		Paddock paddock = new Paddock();
 		paddock.setId(paddockId);
@@ -43,6 +43,7 @@ public class PaddockService implements IPaddockService {
 		paddock.setPCenterLon(lon);
 		paddock.setPDescription(p_description);
 		paddock.setPFeedCapacity(feedCapacity);
+		paddock.setPArea(area);
 		paddockDAO.save(paddock);
 	}
 
@@ -105,6 +106,14 @@ public class PaddockService implements IPaddockService {
 			return false;			
 		}
 
+	}
+
+	@Override
+	public Paddock findPaddockByFIDandPID(short pid, short fid) {
+		PaddockId paddockId = new PaddockId();
+		paddockId.setPId(pid);
+		paddockId.setFarmFId(fid);
+		return paddockDAO.findById(paddockId);
 	}
 
 }

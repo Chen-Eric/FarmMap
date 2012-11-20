@@ -14,7 +14,7 @@ import domain.Paddock;
  */
 public interface IPaddockService {
 	
-	public void addPaddockByFarmId(short fid, short pid, String pName, Double lat, Double lon, String p_description, short feedCapacity);
+	public void addPaddockByFarmId(short fid, short pid, String pName, Double lat, Double lon, String p_description, short feedCapacity, Double area);
 	
 	public void addPaddockByFarmAndBlockId(Paddock paddock);
 	
@@ -23,6 +23,8 @@ public interface IPaddockService {
 	public void updatePaddock(Paddock paddock);
 	
 	public boolean findPaddockById(short pid, short fid);
+	
+	public Paddock findPaddockByFIDandPID(short pid, short fid);
 	
 	public List<Paddock> listPaddocksByFarmId(short farmId);
 	

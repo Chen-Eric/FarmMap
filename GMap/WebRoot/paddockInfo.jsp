@@ -11,9 +11,8 @@
 <link rel="stylesheet" type="text/css" href="CSS/page.css">
 
 <div id="paddockInfo">
-	<s:action name="DrawMap" namespace="/DrawMap"/>
 	<table>
-		<caption>Paddocl Basic Information</caption>
+		<caption>Paddock Basic Information</caption>
 		<thead>
 			<tr>
 				<td id="pid">PID&nbsp;&nbsp;</td>
@@ -23,8 +22,46 @@
 			</tr>
 		</thead>
 		<tbody>
-			<s:property value="%{#session.Error[0]}"/>
-			<s:iterator value="#session.paddocksFromDBonPage" status="paddock"
+		
+			<s:form action="EditPaddock" namespace="/Paddock" method="post">
+				<s:hidden name="selectedPId" value="%{#session.singlePaddock.Id.PId}">
+				</s:hidden>
+				<s:hidden name="selectedPName" value="%{#session.singlePaddock.PName}">
+				</s:hidden>
+				<s:hidden name="selectedPArea" value="%{#session.singlePaddock.PArea}">
+				</s:hidden>
+				<tr>
+				<td>
+					<table>
+						<s:textfield name="newPId"
+							value="%{#session.singlePaddock.Id.PId}" size="1px" />
+					</table></td>
+				<td><table>
+						<s:textfield name="newPName"
+							value="%{#session.singlePaddock.PName}" size="5px" />
+					</table>
+				</td>
+				<td>
+					<table>
+						<s:textfield name="PDescription"
+							value="%{#session.singlePaddock.PDescription}" size="6px" />
+					</table></td>
+				<td>
+					<table>
+						<s:textfield name="PFeedCapacity"
+							value="%{#session.singlePaddock.PFeedCapacity}" size="3px" />
+					</table></td>
+				<td><table>
+					<s:submit id="update_button" cssClass="button green"
+						value="Update" onmouseup="update_tabular_data()"/>
+					</table>
+				</td>
+				</tr>
+			</s:form>
+
+		
+			<!-- 
+				<s:iterator value="#session.paddocksFromDBonPage" status="paddock"
 				var="singlePaddock">
 				<s:form action="EditPaddock" namespace="/Paddock" method="post">
 				<s:if test="#paddock.odd == true">
@@ -36,6 +73,8 @@
 				<s:hidden name="selectedPId" value="%{#singlePaddock.Id.PId}">
 				</s:hidden>
 				<s:hidden name="selectedPName" value="%{#singlePaddock.PName}">
+				</s:hidden>
+				<s:hidden name="selectedPArea" value="%{#singlePaddock.PArea}">
 				</s:hidden>
 				<td>
 					<table>
@@ -65,6 +104,7 @@
 				</tr>
 				</s:form>
 			</s:iterator>
+			 -->
 
 		</tbody>
 	</table>
