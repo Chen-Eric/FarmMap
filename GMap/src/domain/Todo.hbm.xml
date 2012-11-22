@@ -25,5 +25,8 @@
         <property name="TDescription" type="java.lang.String">
             <column name="T_Description" />
         </property>
+        <property name="TDone" type="boolean">
+            <column name="T_Done" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

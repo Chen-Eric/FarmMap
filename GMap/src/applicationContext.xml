@@ -178,4 +178,10 @@
 		</property>
 	</bean>
 	
+	<bean name="TodoAction" class="action.TodoAction">
+		<property name="todoService">
+			<ref bean="TodoService"/>
+		</property>
+	</bean>
+	
 </beans>

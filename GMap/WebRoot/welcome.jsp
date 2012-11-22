@@ -27,7 +27,7 @@
 <sj:head jqueryui="true" jquerytheme="smoothness" />
 
 <link rel="stylesheet" type="text/css" href="CSS/button.css">
-<link rel="stylesheet" type="text/css" href="CSS/mapPage.css">
+<link rel="stylesheet" type="text/css" href="CSS/welcomePage.css">
 
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=false">
@@ -52,10 +52,8 @@
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
 
-<!-- 
 <script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
 <script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
- -->
 
 <script type="text/javascript">
 	
@@ -67,29 +65,21 @@
 	<div id="PageBody">
 		<div id="Sidebar">
 			<p align="center">
-				<button class="button white" onclick="forwardPage('index')">Index&nbsp;Page</button>
+				<button class="button white" onclick="forwardPage('index')">Index</button>
 			</p>
 			<p align="center">
-				<button class="button blue" onclick="forwardPage('manage')">Manage&nbsp;Paddocks</button>
+				<button class="button blue" onclick="forwardPage('map')">Manage&nbsp;Map</button>
 			</p>
 			<p align="center">
-				<button class="button orange" onclick="completePaddock()">Complete&nbsp;Paddock</button>
+				<button class="button orange" onclick="forwardPage('manage')">Manage&nbsp;Paddock</button>
 			</p>
 			<p align="center">
-				<button class="button green" onclick="startNewPaddock()">Add&nbsp;Paddock</button>
-			</p>
-			<p align="center">
-				<button class="button rosy" onclick="undoLastMark()">Remove&nbsp;Last&nbsp;Corner</button>
-			</p>
-			<p align="center">
-				<button class="button gray" onclick="deleteSelectedPaddock()">Delete&nbsp;Paddock</button>
-			</p>
+				<button class="button green"	onclick="forwardPage('stockType')">Stock&nbsp;Type</button>
+			</p>	
 			<p align="center">
 				<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
 			</p>
-			<div class="paddockInfoDIV">
-				<jsp:include page="paddockInfo.jsp" />				
-			</div>		
+			
 		</div>
 		<div id="map_canvas" />
 	</div>

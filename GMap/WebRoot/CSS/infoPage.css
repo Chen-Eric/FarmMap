@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+#pid {
+	color: red;
+}
+
+#pname {
+	color: blue;
+}
+
+#note {
+	color: red;
+}
+
+#feed {
+	color: green;
+}
+
+#update {
+	color: blue;
+}
+
+#paddockInfo {
+	padding-top: 10%
+}
+
+#paddockInfo table caption {
+	color: Black;
+	font-family: cursive;
+	text-align: center;
+	font-size: 1.2em;
+}
+
+#paddockInfo table thead {
+	color: blue;
+	text-align: center;
+	font-size: 1.4em;
+	width: 20%;
+}
+
+#paddockInfo table td {
+	border: 0px solid #96C2F1;
+	margin: 0px auto;
+	text-align: center;
+	font-size: 80%;
+	background-color: #EFF7FF cursor:    crosshair;
+}
+
+#paddockTodo table {
+	margin: 0px auto;
+	border: 0px solid #9BDF70;
+	background-color: #F0FBEB
+}

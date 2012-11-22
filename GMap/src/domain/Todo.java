@@ -10,12 +10,17 @@ public class Todo implements java.io.Serializable {
 
 	// Fields
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1462412136292053369L;
 	private Short TId;
 	private Short paddockPId;
 	private Short paddockFarmFId;
 	private Date TDateEntered;
 	private Date TDateDue;
 	private String TDescription;
+	private boolean TDone;
 
 	// Constructors
 
@@ -24,20 +29,22 @@ public class Todo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public Todo(Short paddockPId, Short paddockFarmFId, Date TDateEntered) {
+	public Todo(Short paddockPId, Short paddockFarmFId, Date TDateEntered, boolean TDone) {
 		this.paddockPId = paddockPId;
 		this.paddockFarmFId = paddockFarmFId;
 		this.TDateEntered = TDateEntered;
+		this.TDone = TDone;
 	}
 
 	/** full constructor */
 	public Todo(Short paddockPId, Short paddockFarmFId, Date TDateEntered,
-			Date TDateDue, String TDescription) {
+			Date TDateDue, String TDescription, boolean TDone) {
 		this.paddockPId = paddockPId;
 		this.paddockFarmFId = paddockFarmFId;
 		this.TDateEntered = TDateEntered;
 		this.TDateDue = TDateDue;
 		this.TDescription = TDescription;
+		this.TDone = TDone;
 	}
 
 	// Property accessors
@@ -88,6 +95,14 @@ public class Todo implements java.io.Serializable {
 
 	public void setTDescription(String TDescription) {
 		this.TDescription = TDescription;
+	}
+
+	public boolean getTDone() {
+		return TDone;
+	}
+
+	public void setTDone(boolean tDone) {
+		TDone = tDone;
 	}
 
 }

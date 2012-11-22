@@ -39,10 +39,11 @@ function completePaddock() {
 	markersArray.clear();
 	google.maps.event.removeListener(myMouseListener);
 	
-	//To reload the paddock info jsp.
-	$(document).ready(function() {
-		update_tabular_data();
-	});
+//	//To reload the paddock info jsp.
+//	$(document).ready(function() {
+//		update_paddockInfo_data();
+//		update_paddockTodo_data();
+//	});
 }
 
 // place a new marker on the mouse click position
@@ -140,12 +141,38 @@ function showSelectedPaddockInfo() {
 	var param = {
 			selectedPId: $("#map_canvas").data("focusPaddockID")
 	};
-	$.getJSON(url, param, function(singlePaddock) {
-		console.log(singlePaddock);
-		$(document).ready(function() {
-			update_tabular_data();
-		});
+//	$.getJSON(url, param, function(singlePaddock) {
+//		console.log(singlePaddock);
+//		update_paddockTodo_data();
+//		update_paddockInfo_data();
+//	});
+	$.ajax({
+		url: url,
+		dataType: 'json',
+		data: param,
+		success: function(singlePaddock) {
+			console.log(singlePaddock);
+			update_paddockTodo_data();
+			update_paddockInfo_data();
+		},
+		error : function(message){
+			$(".paddockTodoDIV").addpend("<strong>" + message + "</strong>");
+		}
 	});
+}
+
+//reload the paddockinfo forms.
+function update_paddockInfo_data(){
+//	$('.tabular-data').load('paddockInfo.jsp');
+	$(".paddockInfoDIV").load('paddockInfo.jsp');
+	console.log("update_paddockInfo_data");
+}
+
+//reload the paddockTodo forms.
+function update_paddockTodo_data(){
+//	$('.todo-data').load('paddockTodo.jsp');
+	$(".paddockTodoDIV").load('paddockTodo.jsp');
+	console.log("update_paddockTodo_data");
 }
 
 //using jQuery-Grid to build up a grid to update the names of those paddocks.

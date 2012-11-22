@@ -10,12 +10,14 @@
 	<!-- Basic Redirection and page dispacthing. -->
 	<package name="Control" namespace="/Control" extends="struts-default,json-default">
 		<action name="showFarmMap" class="ControlAction" method="showFarmMap">
-			<result name="success" type="redirect">/map.jsp</result>
+			<result name="success" type="dispatcher">/welcome.jsp</result>
 			<result name="error" type="redirect">/index.jsp</result>
 		</action>
-		<action name="showFarmMap" class="ControlAction" method="showFarmMapOnTest">
+		<action name="showFarmMapOnTest" class="ControlAction" method="showFarmMapOnTest">
 			<result name="success">/test.jsp</result>
 			<result name="error">/index.jsp</result>
+		</action>
+		<action name="ExitFarm" class="ControlAction" method="exitFarm">
 		</action>
 	</package>
 
@@ -55,6 +57,19 @@
 			<result type="json" name="success">
 				<param name="root">paddockTodos</param>
 			</result>
+		</action>
+		
+	</package>
+	
+	<!-- Paddock Todo Management Action -->
+	<package name="TodoManager" namespace="/Todo" extends="struts-default">
+		<action name="AddPaddockTodo" class="TodoAction" method="addPaddockTodo">
+			<result name="success" type="redirect">/manage.jsp</result>
+			<result name="error" type="redirect">/manage.jsp</result>
+		</action>
+		<action name="EditPaddockTodo" class="TodoAction" method="deletePaddockTodo">
+			<result name="success" type="redirect">/manage.jsp</result>
+			<result name="error" type="redirect">/manage.jsp</result>
 		</action>
 	</package>
 

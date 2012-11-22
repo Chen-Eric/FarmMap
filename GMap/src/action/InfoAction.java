@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import common.GrazingAdapter;
 import common.TodoAdapter;
+import common.TodoFormatter;
 
 import domain.Farm;
 import domain.Grazing;
@@ -27,9 +28,6 @@ public class InfoAction extends BaseAction {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private int totalPages;
-	private int currentPage;
-	private int totalRecords;
 	
 	private String paddockBasicInfo;
 	private String paddockGrazings;
@@ -65,28 +63,8 @@ public class InfoAction extends BaseAction {
 		this.paddockId = paddockId;
 	}
 
-	public int getTotalPages() {
-		return totalPages;
-	}
-
-	public void setTotalPages(int totalPages) {
-		this.totalPages = totalPages;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public int getTotalRecords() {
-		return totalRecords;
-	}
-
-	public void setTotalRecords(int totalRecords) {
-		this.totalRecords = totalRecords;
+	public int getPaddockId() {
+		return paddockId;
 	}
 
 	/**
@@ -117,8 +95,8 @@ public class InfoAction extends BaseAction {
 		
 		short farmId = (Short) session.get("farmId");
 		
-		System.out.println("farmId: " + farmId);
-		System.out.println("paddockId: " + paddockId);
+		System.out.println("InfoAction-showPaddockGrazings, farmId: " + farmId);
+		System.out.println("InfoAction-showPaddockGrazings, paddockId: " + paddockId);
 
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.registerTypeAdapter(Grazing.class,
@@ -128,7 +106,8 @@ public class InfoAction extends BaseAction {
 				(short)paddockId);
 
 		System.out.println("Grazings: " + gson.toJson(lg));
-
+//		session.remove("paddockGrazings");
+//		session.put("paddockGrazings", lg);
 		this.paddockGrazings = gson.toJson(lg);
 		
 		return SUCCESS;
@@ -142,17 +121,24 @@ public class InfoAction extends BaseAction {
 		
 		short farmId = (Short) session.get("farmId");
 		
-		System.out.println("farmId: " + farmId);
-		System.out.println("paddockId: " + paddockId);
+		System.out.println("InfoAction-showPaddockTodos, farmId: " + farmId);
+		System.out.println("InfoAction-showPaddockTodos, paddockId: " + paddockId);
 		
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		Gson gson = gsonBuilder.registerTypeAdapter(Todo.class, new TodoAdapter()).create();
 		
 		List<Todo> lt = todoService.listTodoByPaddock(farmId, (short)paddockId);
+		List<TodoFormatter> ltf = todoService.listTodoByPaddockForForm(farmId, (short) paddockId);
 		
 		this.paddockTodos = gson.toJson(lt);
+		session.remove("paddockTodosFromDB");
+		session.put("paddockTodosFromDB", ltf);
+		session.remove("selectedPId");
+		session.put("selectedPId", paddockId);
 		System.out.println("Todos: " + gson.toJson(lt));
 		return SUCCESS;
 	}
+	
+	
 	
 }

@@ -35,9 +35,7 @@
 		</div>
 		<div id="wrapper">
 			<div id="content">
-				<strong>
-					&nbsp;&nbsp;<s:include value="navigation.jsp"></s:include>
-				</strong>
+				<p></p>
 			</div>
 		</div>
 		<div id="navigation">
@@ -46,13 +44,15 @@
 				<s:action name="ShowFarms" namespace="/ShowInfo" />
 					<table border="0.5" width="200" bordercolor="#rr44cc">
 					<caption>All The Farms</caption>
-					<s:iterator value="#session.farms" status="farm">
+					<s:iterator value="#session.farms" status="farm" var="singleFarm">
 						<s:if test="#farm.odd == true">
 							<tr>
 							<td id="farmName">Farm Name:</td>
-							<td><input id="farmId" type="button" class="button whiteButton"
+							<td>
+							<input id="farmId" type="button" class="button whiteButton"
 								value="<s:property value="FName"/>"
-								onclick="setFocusFarmID(<s:property value="FId"/>)"/></td>
+								onclick="setFocusFarmID(<s:property value="FId"/>)"/>
+							</td>
 							</tr>
 						</s:if>
 						<s:else>
@@ -76,7 +76,7 @@
 			</p>
 			<p>
 				<b>Struts2<br>jQuery</b>
-				<b>Stock Management</b>
+				<b>Stock Count</b>
 			</p>
 			<p>
 			<h3 style="color: #981793">&nbsp;&nbsp;&nbsp;Comming soon...</h3>

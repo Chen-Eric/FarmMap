@@ -33,7 +33,7 @@ body {
 }
 
 #map_canvas {
-	width: 55%;
+	width: auto;
 	height: 99%;
 	margin: 1%;
 	float: center;

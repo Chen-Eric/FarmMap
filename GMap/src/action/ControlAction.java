@@ -47,4 +47,9 @@ public class ControlAction extends BaseAction {
 		}
 	}
 	
+	public String exitFarm(){
+		session.remove("farmId");
+		return "exit";
+	}
+	
 }

@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+#EnterDate{
+	width: 100px;
+	color: red;
+}
+#DueDate{
+	width: 110px;
+	color: black;
+}
+#Note{
+	width: 110px;
+	color: navy;
+}
+#Done{
+	width: 110px;
+	text-align: left;
+	color: blue;
+}
+#Edit{
+	width: 130px;
+	text-align: center;
+}
+#paddockTodo caption {
+	color: Red;
+	font-family: fantasy;
+	font-size: 2em;
+	text-align: center;
+}

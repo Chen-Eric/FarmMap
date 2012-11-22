@@ -23,7 +23,7 @@
 <meta http-equiv="description" content="This is my page">
 
 <link rel="stylesheet" type="text/css" href="CSS/button.css">
-<link rel="stylesheet" type="text/css" href="CSS/page.css">
+<link rel="stylesheet" type="text/css" href="CSS/managePage.css">
 <link rel="stylesheet" type="text/css" href="CSS/ui.jqgrid.css">
 
 <!-- This line the key point to call the Struts2-jQuery-Plugin -->
@@ -50,27 +50,32 @@
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
 
-
+<!-- js library for jqGrid
 <script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
 <script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
+ -->
 
 </head>
 <body onload="initialize()">
 	<div id="PageBody">
 		<div id="Sidebar">
 			<p align="center">
-				<button class="button green" onclick="forwardPage('index')">Index&nbsp;Page</button>
+				<button class="button white" onclick="forwardPage('index')">Index&nbsp;Page</button>
+			</p>
+			<p align="center">
+				<button class="button green" onclick="forwardPage('welcome')">Welcome&nbsp;Page</button>
 			</p>
 			<p align="center">
 				<button class="button blue" onclick="forwardPage('map')">Manage&nbsp;Map</button>
 			</p>
 			<p align="center">
-				<button class="button orange" onclick="jqTest()">Paddock&nbsp;Table</button>
+				<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
 			</p>
-			<p align="center">
-				<button class="button rosy" onclick="paddockBasicInfoManager()">Info&nbsp;Window</button>
-			</p>
-			<div id="Infowindow">
+			<div class="paddockTodoDIV">
+				<jsp:include page="paddockTodo.jsp" />			
+			</div>	
+			<!-- 
+				<div id="Infowindow">
 				<sj:tabbedpanel id="infotabs" spinner="Loading...">
 
 					<sj:tab id="Todo" target="tTodo" label="Todo" />
@@ -109,6 +114,7 @@
 					</div>
 				</sj:tabbedpanel>
 			</div>
+			 -->
 		</div>
 		<div id="map_canvas"></div>
 	</div>

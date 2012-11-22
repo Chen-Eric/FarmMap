@@ -15,7 +15,7 @@
 
 
 <div id="stockTypeInfo">
-	<s:action name="showStockTypes" namespace="/StockManage"/>
+	<s:action name="show" namespace="/StockManage"/>
 	<table id="StockTypeTable">
 		<caption>StockType Management</caption>
 		<s:iterator value="#session.stockTypesFromDB" status="stockType" var="singleStockType">
@@ -64,7 +64,4 @@
 		</s:form>
 	</table>
 	<s:debug></s:debug>
-</div>
-<div id="test">
-	<strong>This is test div.</strong>
 </div>

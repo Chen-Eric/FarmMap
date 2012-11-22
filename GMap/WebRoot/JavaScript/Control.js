@@ -15,15 +15,18 @@ function forwardPage(pageName) {
 
 // after click farm name button, call this fucntion.
 function setFocusFarmID(selectedFarmID) {
-	$("#content").data("selectedFarmID", selectedFarmID);
-	console.log("setFocusFarmID: " + $("#content").data("selectedFarmID"));
+	$("#container").data("selectedFarmID", selectedFarmID);
+	console.log("setFocusFarmID: " + $("#container").data("selectedFarmID"));
 	console.log($(":button").attr("value"));
+	
+	//directly go to welcome page.
+	passFarmId()
 }
 
 // click the navigation index box, call this function.
 function passFarmId() {
 	//alert("FarmId: "+value);
-	var focusedFarmID = $("#content").data("selectedFarmID")
+	var focusedFarmID = $("#container").data("selectedFarmID")
 	if (focusedFarmID != null) {
 		window.location.href = "Control/showFarmMap?farmId="+focusedFarmID;
 	} else {
@@ -33,7 +36,7 @@ function passFarmId() {
 
 function passFarmIdToTest() {
 	//alert("FarmId: "+value);
-	var focusedFarmID = $("#content").data("selectedFarmID")
+	var focusedFarmID = $("#container").data("selectedFarmID")
 	if (focusedFarmID != null) {
 		window.location.href = "Control/showFarmMap?farmId="+focusedFarmID;
 	} else {
@@ -41,10 +44,11 @@ function passFarmIdToTest() {
 	}
 }
 
-//for navigation bar events.
-
-//reload the paddockinfo forms.
-function update_tabular_data(){
-	$('.tabular-data').load('paddockInfo.jsp');
+//exit function
+function exit() {
+	var url = "Control/ExitFarm";
+	$.post(url);
+	console.log("exitFarm");
+	forwardPage('index');
 }
 

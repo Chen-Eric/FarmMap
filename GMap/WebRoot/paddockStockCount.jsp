@@ -8,7 +8,7 @@
 			+ path + "/";
 %>
 <link rel="stylesheet" type="text/css" href="CSS/button.css">
-<link rel="stylesheet" type="text/css" href="CSS/infoPage.css">
+<link rel="stylesheet" type="text/css" href="CSS/page.css">
 
 <div id="paddockInfo">
 	<table>
@@ -53,7 +53,7 @@
 					</table></td>
 				<td><table>
 					<s:submit id="update_button" cssClass="button green"
-						value="Update" onmouseup="update_paddockInfo_data()"/>
+						value="Update" onmouseup="update_tabular_data()"/>
 					</table>
 				</td>
 				</tr>
