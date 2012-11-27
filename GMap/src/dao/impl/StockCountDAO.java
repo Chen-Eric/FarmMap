@@ -2,6 +2,7 @@ package dao.impl;
 
 import java.util.List;
 import org.hibernate.LockMode;
+import org.hibernate.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -148,5 +149,13 @@ public class StockCountDAO extends HibernateDaoSupport implements IStockCountDAO
 	@Override
 	public void updateStockCount(StockCount stockCount) {
 		this.getHibernateTemplate().update(stockCount);		
+	}
+
+	@Override
+	public List<StockCount> findByGrazingId(int gid) {
+		Query query = this.getSession().createQuery("from domain.StockCount as sc where sc.id.grazingGId = ?");
+		query.setParameter(0, gid);
+		
+		return query.list();
 	}
 }

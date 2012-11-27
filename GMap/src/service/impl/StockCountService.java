@@ -68,12 +68,30 @@ public class StockCountService implements IStockCountService {
 	 * @see service.IStockcountService#listStockcountsByGrazingId(domain.Grazing)
 	 */
 	@Override
-	public List<StockCount> listStockcountsByGrazingId(short grazingId) {
-		StockCount stockCount = new StockCount();
+	public List<StockCount> listStockcountsByGrazingId(int grazingId) {
+		return stockcountDAO.findByGrazingId(grazingId);
+	}
+
+	@Override
+	public void addStockCount(Short stockTypeSId, int grazingGId, String scCount) {
 		StockCountId stockCountId = new StockCountId();
-		stockCountId.setGrazingGId((int) grazingId);
+		stockCountId.setStockTypeSId(stockTypeSId);
+		stockCountId.setGrazingGId(grazingGId);
+		StockCount stockCount = new StockCount();
 		stockCount.setId(stockCountId);
-		return stockcountDAO.findByExample(stockCount);
+		stockCount.setScCount(scCount);
+		stockcountDAO.save(stockCount);
+	}
+
+	@Override
+	public void deleteStockCount(short stid, int gid, String scCount) {
+		StockCountId stockCountId = new StockCountId();
+		stockCountId.setStockTypeSId(stid);
+		stockCountId.setGrazingGId(gid);
+		StockCount stockCount = new StockCount();
+		stockCount.setId(stockCountId);
+		stockCount.setScCount(scCount);
+		stockcountDAO.delete(stockCount);
 	}
 
 }

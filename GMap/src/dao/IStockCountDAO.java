@@ -11,6 +11,8 @@ public interface IStockCountDAO {
 	public abstract void delete(StockCount persistentInstance);
 
 	public abstract StockCount findById(domain.StockCountId id);
+	
+	public abstract List<StockCount> findByGrazingId(int gid);
 
 	public abstract List findByExample(StockCount instance);
 

@@ -44,8 +44,6 @@
 
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
 
-
-
 <!-- My JavaScript -->
 <script type="text/javascript" src="JavaScript/Control.js"></script>
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>

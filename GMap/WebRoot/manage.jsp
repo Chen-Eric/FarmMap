@@ -75,45 +75,7 @@
 				<jsp:include page="paddockTodo.jsp" />			
 			</div>	
 			<!-- 
-				<div id="Infowindow">
-				<sj:tabbedpanel id="infotabs" spinner="Loading...">
-
-					<sj:tab id="Todo" target="tTodo" label="Todo" />
-					<sj:tab id="Grazing" target="tGrazing" label="Grazing" />
-
-					<sj:tab id="Test" target="tTest" label="Test" />
-
-					<div id="tGrazing">
-						<table id="Grazings" align="center" title="Grazings"
-							class="tabDivTable">
-							<thead>
-								<tr>
-									<th id="tddatein">Date&nbsp;In&nbsp;</th>
-									<th id="tddateout">Date&nbsp;Out&nbsp;</th>
-									<th id="tdnote">Note</th>
-								</tr>
-							</thead>
-							<tbody id="GrazingData" class="tbody"></tbody>
-						</table>
-					</div>
-					<div id="tTodo">
-						<table id="Todos" align="center" title="Todos" class="tabDivTable">
-							<thead>
-								<tr>
-									<th>Date&nbsp;Entered&nbsp;</th>
-									<th>Date&nbsp;Due&nbsp;</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody id="TodoData" class="tbody"></tbody>
-
-						</table>
-					</div>
-					<div id="tTest">
-					
-					</div>
-				</sj:tabbedpanel>
-			</div>
+				
 			 -->
 		</div>
 		<div id="map_canvas"></div>

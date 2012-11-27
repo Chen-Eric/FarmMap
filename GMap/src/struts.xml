@@ -10,7 +10,7 @@
 	<!-- Basic Redirection and page dispacthing. -->
 	<package name="Control" namespace="/Control" extends="struts-default,json-default">
 		<action name="showFarmMap" class="ControlAction" method="showFarmMap">
-			<result name="success" type="dispatcher">/welcome.jsp</result>
+			<result name="success">/welcome.jsp</result>
 			<result name="error" type="redirect">/index.jsp</result>
 		</action>
 		<action name="showFarmMapOnTest" class="ControlAction" method="showFarmMapOnTest">
@@ -72,6 +72,23 @@
 			<result name="error" type="redirect">/manage.jsp</result>
 		</action>
 	</package>
+	
+	<!-- Paddock Stock-Count Action -->
+	<package name="StockCountManager" namespace="/StockCount" extends="json-default,struts-default">
+		<action name="ShowStockCountByPaddock" class="StockCountAction" method="showSCByPaddock">
+			<result name="success" type="json">
+				<param name="root">stockCountsInDB</param>
+			</result>
+		</action>
+		<action name="EditStockCount" class="StockCountAction" method="editSC">
+			
+		</action>
+		<action name="DeleteStockCount" class="StockCountAction" method="deleteSC">
+		
+		</action>
+		<action name="AddStockCount" class="StockCountAction" method="addSCByPaddock"></action>
+		
+	</package>
 
 	<!-- Paddock Action -->
 	<package name="PaddockManager" namespace="/Paddock" extends="struts-default, json-default">
@@ -90,13 +107,27 @@
 		</action>
 	</package>
 	
-	<!-- Paddock Grid Action, still during test. -->
+	<!-- Paddock Grid Action, test version. -->
+	<!-- 
 	<package name="PaddockGrid" namespace="/PaddockGrid" extends="json-default,struts-default">
 		<action name="ShowPaddockGrid" class="PaddockGridAction" method="showPaddockGrid">
 			<result name="success" type="json">
 				<param name="includeProperties">gridModel,rows,page,total,record</param>
 				<param name="noCache">true</param>
 				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+	</package>
+	 -->
+	
+	<!-- PaddockTodo Grid Action, test version. -->
+	<package name="PaddockTodoGrid" namespace="/TodoGrid" extends="struts-default, json-default">
+		<action name="showPaddockTodoInGrid" class="TodoGridAction" method="showGrid">
+			<result name="success" type="json">
+			</result>
+		</action>
+		<action name="gridDemo" class="TodoGridAction" method="gridDemo">
+			<result name="success" type="json">
 			</result>
 		</action>
 	</package>

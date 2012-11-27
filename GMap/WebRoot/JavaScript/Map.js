@@ -85,7 +85,7 @@ function paddockBasicInfoManager() {
 		$.each(jsonPaddocks, function(index) {
 			//for paddock name.
 			var paddockCenter = new google.maps.LatLng(this.pCenterLat, this.pCenterLon);
-			//console.log(index);
+			
 			var pName = this.pName;
 			var paddockInfo = new MapLabel({
 				text: pName,
@@ -156,7 +156,7 @@ function drawPaddock(path, paddockId) {
 		labelTodo(this.get("pid"));
 		
 		$("#map_canvas").data("focusPaddockID", this.get("pid"));
-		
+		console.log("focusPaddockID:" + $("#map_canvas").data("focusPaddockID"));
 		showSelectedPaddockInfo();
 		
 	});
@@ -168,15 +168,15 @@ function highLightPaddock(selectedPaddockID) {
 
 	var highLightPaddockOptions = {
 		strokeColor : "#ggbbcc",
-		strokeOpacity : 0.8,
-		strokeWeight : 3,
+		strokeOpacity : 0.9,
+		strokeWeight : 3.5,
 		zIndex : 3
 	};
 
 	var normalPaddockOptions = {
 		strokeColor : "#FFcccc",
 		strokeOpacity : 0.5,
-		strokeWeight : 1.7,
+		strokeWeight : 1.8,
 		zIndex : 2
 	};
 

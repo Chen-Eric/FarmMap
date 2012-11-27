@@ -81,6 +81,7 @@ public class MapAction extends BaseAction {
 					jsonCorners.add(gson.toJson(corner));
 				}
 			}
+			
 //			cookies.put("test", "test");
 //			response.addCookie(new Cookie("test", "test"));
 			this.paddocksFromDB = jsonCorners.toString();

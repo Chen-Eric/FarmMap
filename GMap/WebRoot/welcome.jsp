@@ -44,16 +44,12 @@
 
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
 
-
-
 <!-- My JavaScript -->
 <script type="text/javascript" src="JavaScript/Control.js"></script>
+
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
-
-<script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
-<script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
 
 <script type="text/javascript">
 	
@@ -79,7 +75,9 @@
 			<p align="center">
 				<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
 			</p>
-			
+			<p align="center">
+				<button class="button black" onclick="forwardPage('test')">Test&nbsp;Page</button>
+			</p>
 		</div>
 		<div id="map_canvas" />
 	</div>

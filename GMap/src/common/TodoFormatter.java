@@ -1,8 +1,10 @@
 package common;
 
-import java.util.Date;
-
 public class TodoFormatter implements java.io.Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9211685865937045356L;
 	private Short TId;
 	private Short paddockPId;
 	private Short paddockFarmFId;

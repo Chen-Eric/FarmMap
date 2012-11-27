@@ -184,4 +184,16 @@
 		</property>
 	</bean>
 	
+	<bean name="TodoGridAction" class="action.TodoGridAction">
+		<property name="todoService">
+			<ref bean="TodoService"/>
+		</property>
+	</bean>
+	
+	<bean name="StockCountAction" class="action.StockCountAction">
+		<property name="stockCountService">
+			<ref bean="StockCountService"/>
+		</property>
+	</bean>
+	
 </beans>

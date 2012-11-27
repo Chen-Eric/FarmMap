@@ -3,17 +3,20 @@
  */
 package action;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import common.GrazingAdapter;
+import common.StockTypeFormatter;
 import common.TodoAdapter;
 import common.TodoFormatter;
 
 import domain.Farm;
 import domain.Grazing;
+import domain.StockType;
 import domain.Todo;
 
 /**
@@ -72,9 +75,19 @@ public class InfoAction extends BaseAction {
 	 * @return "showFarms"
 	 */
 	public String showFarms() {
+		
 		List<Farm> listOfFarms = farmService.listFarms();
 		session.put("farms", listOfFarms);
-		// System.out.println(listOfFarms.isEmpty());
+		List<StockType> lst = stockTypeService.listAllStocks();
+		List<StockTypeFormatter> lstf = new ArrayList<StockTypeFormatter>();
+		for (StockType st : lst) {
+			StockTypeFormatter stf = new StockTypeFormatter(st.getSId(), st.getSType(), st.getStockUnits().toString());
+			lstf.add(stf);
+		}
+		
+		System.out.println((lstf.size() + "_kind_of_StockTypes"));
+		session.put("stockTypesFromDB", lstf);
+		
 		return "showFarms";
 	}
 

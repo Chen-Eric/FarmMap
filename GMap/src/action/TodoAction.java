@@ -1,5 +1,11 @@
 package action;
 
+import java.util.List;
+
+import common.TodoFormatter;
+
+import domain.Todo;
+
 public class TodoAction extends BaseAction{
 	
 	private String todoEnterDate;
@@ -101,11 +107,11 @@ public class TodoAction extends BaseAction{
 		
 		short farmId = (Short) session.get("farmId");
 		
-		System.out.println("selectedPId: " + selectedPId);
-		System.out.println(todoEnterDate);
-		System.out.println(todoDueDate);
-		System.out.println(todoDescription);
-		System.out.println(todoIsDone);
+//		System.out.println("selectedPId: " + selectedPId);
+//		System.out.println(todoEnterDate);
+//		System.out.println(todoDueDate);
+//		System.out.println(todoDescription);
+//		System.out.println(todoIsDone);
 		
 		if (todoEnterDate.equals("")) {
 			return ERROR;
@@ -113,8 +119,14 @@ public class TodoAction extends BaseAction{
 			
 			if (todoIsDone.equals("false")) {
 				todoService.addTodo((short) selectedPId, farmId, todoEnterDate, todoDueDate, todoDescription, false);	
+				List<TodoFormatter> ltf = todoService.listTodoByPaddockForForm(farmId, (short)selectedPId);
+				session.remove("paddockTodosFromDB");
+				session.put("paddockTodosFromDB", ltf);
 			}else {
 				todoService.addTodo((short) selectedPId, farmId, todoEnterDate, todoDueDate, todoDescription, true);
+				List<TodoFormatter> ltf = todoService.listTodoByPaddockForForm(farmId, (short)selectedPId);
+				session.remove("paddockTodosFromDB");
+				session.put("paddockTodosFromDB", ltf);
 			}
 			
 			return SUCCESS;

@@ -21,6 +21,7 @@ import common.TodoFormatter;
 import dao.ICornerDAO;
 import dao.impl.BlockDAO;
 import dao.impl.GrazingDAO;
+import dao.impl.StockCountDAO;
 import dao.impl.StockTypeDAO;
 import dao.impl.TodoDAO;
 import domain.Block;
@@ -68,6 +69,7 @@ public class HSTest {
 		StockTypeDAO stockTypeDAO = (StockTypeDAO) ctx.getBean("StockTypeDAO");
 		StockCountService stockcountService = (StockCountService) ctx
 				.getBean("StockCountService");
+		StockCountDAO stockCountDAO = (StockCountDAO) ctx.getBean("StockCountDAO");
 		TodoService todoService = (TodoService) ctx.getBean("TodoService");
 		TodoDAO todoDAO = (TodoDAO) ctx.getBean("TodoDAO");
 		GrazingService grazingService = (GrazingService) ctx
@@ -136,8 +138,24 @@ public class HSTest {
 
 		// todoService.addTodo(todo);
 
-		List<Todo> lt = todoService.listTodoByPaddock(farmId, paddockId);
+//		List<Todo> lt = todoService.listTodoByPaddock(farmId, paddockId);
 		
+//		StockCountId scid = new StockCountId();
+//		scid.setGrazingGId(1);
+//		List<StockCount> lsc = stockCountDAO.findByGrazingId(2);
+//		System.out.println(lsc.size());
+		
+		Short stockTypeSId = 4;
+		int grazingGId = 1;
+		String scCount = "wo";
+		
+		StockCountId stockCountId = new StockCountId();
+		stockCountId.setStockTypeSId(stockTypeSId);
+		stockCountId.setGrazingGId(grazingGId);
+		StockCount stockCount = new StockCount();
+		stockCount.setId(stockCountId);
+		stockCount.setScCount(scCount);
+		stockCountDAO.save(stockCount);
 	}
 
 }

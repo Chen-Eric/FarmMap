@@ -51,7 +51,7 @@
 							<td>
 							<input id="farmId" type="button" class="button whiteButton"
 								value="<s:property value="FName"/>"
-								onclick="setFocusFarmID(<s:property value="FId"/>)"/>
+								onclick="passFarmId(<s:property value="FId"/>)"/>
 							</td>
 							</tr>
 						</s:if>
@@ -60,7 +60,7 @@
 							<td id="farmName">Farm Name:</td>
 							<td><input id="farmId" type="button" class="button whiteButton"
 								value="<s:property value="FName"/>"
-								onclick="setFocusFarmID(<s:property value="FId"/>)"/> </td>
+								onclick="passFarmId(<s:property value="FId"/>)"/> </td>
 							</tr>
 						</s:else>
 					</s:iterator>

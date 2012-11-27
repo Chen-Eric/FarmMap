@@ -17,18 +17,21 @@ function forwardPage(pageName) {
 function setFocusFarmID(selectedFarmID) {
 	$("#container").data("selectedFarmID", selectedFarmID);
 	console.log("setFocusFarmID: " + $("#container").data("selectedFarmID"));
-	console.log($(":button").attr("value"));
 	
 	//directly go to welcome page.
 	passFarmId()
 }
 
 // click the navigation index box, call this function.
-function passFarmId() {
+function passFarmId(focusedFarmID) {
 	//alert("FarmId: "+value);
-	var focusedFarmID = $("#container").data("selectedFarmID")
 	if (focusedFarmID != null) {
 		window.location.href = "Control/showFarmMap?farmId="+focusedFarmID;
+//		var url = "Control/showFarmMap";
+//		var param = {
+//				farmId : focusedFarmID
+//		}
+//		$.post(url, param);
 	} else {
 		alert("Please select a farm!");
 	}

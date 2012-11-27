@@ -25,6 +25,7 @@
 
 <!-- This line the key point to call the Struts2-jQuery-Plugin -->
 <sj:head jqueryui="true" jquerytheme="smoothness" />
+<sj:head compressed="false" />
 
 <link rel="stylesheet" type="text/css" href="CSS/button.css">
 <link rel="stylesheet" type="text/css" href="CSS/page.css">
@@ -44,22 +45,15 @@
 
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
 
-<script type="text/javascript" src="JavaScript/jquery.flip.js"></script>
-<script type="text/javascript" src="JavaScript/jquery-ui-1.9.1.custom.min.js"></script>
-
 <!-- My JavaScript -->
 <script type="text/javascript" src="JavaScript/Control.js"></script>
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
 <script type="text/javascript" src="JavaScript/Navigation.js"></script>
+<script type="text/javascript" src="JavaScript/StockCount.js"></script>
 
 
-
-
-
-<script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
-<script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
 
 <script type="text/javascript">
 	
@@ -71,34 +65,125 @@
 	<div id="PageBody">
 		<div id="Sidebar">
 			<p align="center">
+				<button class="button white" onclick="forwardPage('index')">Stock&nbsp;Type&nbsp;Manage</button>
+			</p>
+			<p align="center">
 				<button class="button blue" onclick="forwardPage('manage')">Manage&nbsp;Paddocks</button>
 			</p>
+
 			<p align="center">
-				<button class="button orange" onclick="completePaddock()">Complete&nbsp;Paddock</button>
+				<button class="button black" onclick="%{#todoGridActionURL}">Test_Of_Gird</button>
 			</p>
-			<p align="center">
-				<button class="button green" onclick="startNewPaddock()">Add&nbsp;Paddock</button>
-			</p>
-			<p align="center">
-				<button class="button red" onclick="deleteSelectedPaddock()">Delete&nbsp;Paddock</button>
-			</p>
-			<p align="center">
-				<button class="button rosy" onclick="undoLastMark()">Remove&nbsp;Last&nbsp;Corner</button>
-			</p>
-			<p align="center">
-				<button class="button green"	onclick="mapManageFlip()">Map&nbsp;Manage</button>
-			</p>
-			<p align="center">
-				<button class="button white"	onclick="stockTypeManageFlip()">Stock&nbsp;Type&nbsp;Manage</button>
-			</p>
-			<div class='tabular-data'>
-				<jsp:include page="paddockInfo.jsp" />				
-			</div>			
+			<fieldset>
+				<legend>Paddock</legend>
+				<p align="center">
+					<button class="button orange" onclick="completePaddock()">Complete</button>
+				</p>
+				<p align="center">
+					<button class="button green" onclick="startNewPaddock()">Add</button>
+				</p>
+				<p align="center">
+					<button class="button red" onclick="deleteSelectedPaddock()">Delete</button>
+				</p>
+				<p align="center">
+					<button class="button rosy" onclick="undoLastMark()">Remove&nbsp;Last&nbsp;Corner</button>
+				</p>
+			</fieldset>
+			<div id="Infowindow">
+				<sj:tabbedpanel id="infotabs" spinner="Loading...">
+
+					<sj:tab id="Todo" target="tTodo" label="Todo" />
+					<sj:tab id="Grazing" target="tGrazing" label="Grazing" />
+
+					<sj:tab id="Test" target="tTest" label="Test" />
+
+					<div id="tGrazing">
+						<table id="Grazings" align="center" title="Grazings"
+							class="tabDivTable">
+							<thead>
+								<tr>
+									<th id="tddatein">GID&nbsp;&nbsp;</th>
+									<th id="tddatein">Date&nbsp;In&nbsp;</th>
+									<th id="tddateout">Date&nbsp;Out&nbsp;</th>
+									<th id="tdnote">Note</th>
+								</tr>
+							</thead>
+							<tbody id="GrazingData" class="tbody"></tbody>
+						</table>
+						<br>
+						<table id="sc" align="center" class="tabDivTable">
+							<thead>
+								<tr>
+									<th>Grazing&nbsp;ID&nbsp;</th>
+									<th>StockType&nbsp;ID&nbsp;</th>
+									<th>SC-count</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="scData" class="tbody"></tbody>
+						</table>
+						<div id="scDialogDIV">
+							<sj:dialog id="scDialog" title="New Stock-Count?"
+								autoOpen="false" showEffect="slide" hideEffect="slide"
+								modal="true" closeOnEscape="true" width="auto"
+								buttons="{'OK':function(){scDialogSubmit();},'Cancel':function(){scDialogCancel();}}">
+
+								<p id="scDialogDIV" style="text-align: center;">
+									For Paddock&nbsp;<strong id="scDialogDIVS1">?&nbsp;</strong>Grazing&nbsp;<strong
+										id="scDialogDIVS2">?</strong>
+								</p>
+								<s:select id="stSelector" list="%{#session.stockTypesFromDB}"
+									listValue="STypeAndUnit" listKey="SId" required="true">SelectStockType:</s:select>
+								<br>
+								<s:textfield id="stCount" required="true">StockTypeCount :</s:textfield>
+								<div id="scResult" style="color: red"></div>
+							</sj:dialog>
+						</div>
+					</div>
+					<div id="tTodo">
+						<!-- 
+							<table id="Todos" align="center" title="Todos" class="tabDivTable">
+							<thead>
+								<tr>
+									<th>Date&nbsp;Entered&nbsp;</th>
+									<th>Date&nbsp;Due&nbsp;</th>
+									<th>Description</th>
+								</tr>
+							</thead>
+							<tbody id="TodoData" class="tbody"></tbody>
+						</table>
+						 -->
+						<s:url var="todoGridActionURL" action="showPaddockTodoInGrid"
+							namespace="/TodoGrid" />
+
+						<sjg:grid id="todoGrid" caption="Todo Grid Test" dataType="json"
+							href="%{todoGridActionURL}" pager="false"
+							gridModel="gridModel" rowList="10,15,20" rowNum="10"
+							rownumbers="false" viewrecords="true">
+							<sjg:gridColumn name="paddockFarmFId" index="paddockFarmFId"
+								title="fid" hidden="true" />
+							<sjg:gridColumn name="paddockPId" index="paddockPId" title="pid"
+								hidden="true" />
+							<sjg:gridColumn name="TId" index="TId" title="TodoID"
+								formatter="integer" sortable="false" />
+							<sjg:gridColumn name="TDateEntered" index="TDateEntered" title="EnterDate" sortable="false"></sjg:gridColumn>
+							<sjg:gridColumn name="TDateDue" index="TDateDue" title="DueDate" sortable="false"></sjg:gridColumn>
+							<sjg:gridColumn name="TDescription" index="TDescription" title="Note" sortable="false"></sjg:gridColumn>
+							<sjg:gridColumn name="TDone" index="TDone" title="State" sortable="false"></sjg:gridColumn>
+						</sjg:grid>
+						
+					</div>
+					<div id="tTest">
+						<div id="sc"></div>
+					</div>
+				</sj:tabbedpanel>
+			</div>
+
 		</div>
 		<div id="map_canvas" />
 	</div>
 	<div>
-		<s:debug/>
+		<s:debug />
 	</div>
 </body>
 </html>

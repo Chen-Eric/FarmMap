@@ -30,7 +30,7 @@ public class ControlAction extends BaseAction {
 		if (Integer.valueOf(farmId).equals(null)) {
 			return ERROR;
 		} else {
-			System.out.println("ControlAction: " + farmId);
+			System.out.println("Control_Action_Received_FarmId: " + farmId);
 			session.put("farmId", (short)farmId);
 			return SUCCESS;
 		}
