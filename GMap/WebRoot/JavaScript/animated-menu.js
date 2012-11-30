@@ -11,7 +11,7 @@ $(document).ready(function() {
 	// When mouse rolls over
 	$("li").mouseover(function() {
 		$(this).stop().animate({
-			height : '150px'
+			height : '120px'
 		}, {
 			queue : false,
 			duration : 600,

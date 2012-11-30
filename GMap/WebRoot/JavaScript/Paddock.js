@@ -3,6 +3,124 @@ var newPaddock = new google.maps.Polygon();
 var newPaddockCoords;
 var markersArray;
 
+//for sj-Dialog
+function openPaddockDialog() {
+	if (newPaddockCoords == undefined) {
+		console.log("undefined newPaddockCoords on the map!");
+		showPaddockMsg("No new Paddock :-(");
+	} else {
+		if (newPaddockCoords.getLength() > 2) {
+			console.log("Open paddock Dialog");
+			$("#pDialog").dialog("open");
+			showPaddockMsg("");
+		} else {
+			showPaddockMsg("Not enouth coords! :-(");
+		}
+	}
+}
+
+function closePaddockDialog() {
+	$("#pDialog").dialog("close");
+}
+
+function submitNewPaddock() {
+	console.log("New Paddock Submit from Dialog!");
+	showPaddockMsg("");
+	
+	var newPaddockId, newPaddockName, newPaddockFC, newPaddockDescription;
+	var checkFlag = false;
+	var errors = new google.maps.MVCArray();
+	
+	//for newPaddockID input.
+//	console.log($("#newPaddockId").attr("value"));
+//	console.log($('input[name="PIDBOX"]:checked').val());
+	if ($("#newPaddockId").attr("value") == "" && $('input[name="PIDBOX"]:checked').val() == undefined) {
+//		showPaddockMsg("Input a newPaddockID or choose default!");
+		errors.push("Input a newPaddockID or choose default!");
+		$("#newPaddockId").effect('highlight', {'color':'red'}, 2000);
+	} else {
+		if ($("#newPaddockId").attr("value") != "") {
+			newPaddockId = $("#newPaddockId").attr("value");
+			if (numberCheck(newPaddockId) == 0) {
+				errors.push("Input an Integer for newPaddockID or choose default!");
+				$("#newPaddockId").effect('highlight', {'color':'yellow'}, 2000);
+			}
+		}
+		if ($('input[name="PIDBOX"]:checked').val() == "true") {
+			newPaddockId = 0;
+		}
+	}
+	console.log("newPaddockId: " + newPaddockId);
+	
+	//for newPaddockName input.
+//	console.log($("#newPaddockName").attr("value"));
+//	console.log($('input[name="PNBOX"]:checked').val());
+	if ($("#newPaddockName").attr("value") == "" && $('input[name="PNBOX"]:checked').val() == undefined) {
+//		showPaddockMsg("Input a newPaddockName or choose default!");
+		errors.push("Input a newPaddockName or choose default!");
+		$("#newPaddockName").effect('highlight', {'color':'red'}, 2000);
+	} else {
+		if ($("#newPaddockName").attr("value") != "") {
+			newPaddockName = $("#newPaddockName").attr("value");			
+		}
+		if ($('input[name="PNBOX"]:checked').val() == "true") {
+			newPaddockName = 'default';
+		}
+	}
+	console.log("newPaddockName: " + newPaddockName);
+	
+	//for newPaddockFeedCapacity.
+//	console.log($("#newPaddockFC").attr("value"));
+//	console.log($('input[name="PFCBOX"]:checked').val());
+	if ($("#newPaddockFC").attr("value") == "" && $('input[name="PFCBOX"]:checked').val() == undefined) {
+//		showPaddockMsg("Input a newPaddockFC or choose default!");
+		errors.push("Input a newPaddockFC or choose default!");
+		$("#newPaddockFC").effect('highlight', {'color':'red'}, 2000);
+	} else {
+		if ($("#newPaddockFC").attr("value") != "") {
+			newPaddockFC = $("#newPaddockFC").attr("value");
+			if (numberCheck(newPaddockFC) == 0) {
+				errors.push("Input an Integer for newPaddockFC or choose default!");
+				$("#newPaddockFC").effect('highlight', {'color':'yellow'}, 2000);
+			}
+		}
+		if ($('input[name="PFCBOX"]:checked').val() == "true") {
+			newPaddockFC = 0;
+		}
+	}
+	console.log("newPaddockFC: " + newPaddockFC);
+	
+	//for newPaddockDescription
+	if ($("#newPaddockDescription").attr("value") == "" && $('input[name="PDBOX"]:checked').val() == undefined) {
+//		showPaddockMsg("Input a newPaddockFC or choose default!");
+		errors.push("Input a newPaddockDescription or choose default!");
+		$("#newPaddockDescription").effect('highlight', {'color':'red'}, 2000);
+	} else {
+		if ($("#newPaddockDescription").attr("value") != "") {
+			newPaddockDescription = $("#newPaddockDescription").attr("value");
+		}
+		if ($('input[name="PDBOX"]:checked').val() == "true") {
+			newPaddockDescription = 'default';
+		}
+	}
+	console.log("newPaddockDescription: " + newPaddockDescription);
+	
+	showPaddockMsg(errors.getAt(0));
+//	console.log("ErrorCount: " + errors.getLength());
+	if (errors.getLength() == 0) {
+		completePaddock(newPaddockId, newPaddockName, newPaddockFC, newPaddockDescription);
+		$("#pDialog").dialog("close");
+	}
+}
+
+//for error message show up.
+function showPaddockMsg(errorMsg) {
+	$("#paddockMsgDIV").empty();
+	$("#paddockMsgDIV").html(errorMsg);
+	$("#paddockMsgDialog").empty();
+	$("#paddockMsgDialog").html(errorMsg);
+}
+
 // activate a new mouse listener
 function startNewPaddock() {
 	newPaddockCoords = new google.maps.MVCArray();
@@ -20,13 +138,13 @@ function undoLastMark() {
 }
 
 // complete the newPaddock and show it on map
-function completePaddock() {
+function completePaddock(pid,pname,pfc,pdescription) {
 	// Render the new paddock on the map.
 	showNewPaddock(newPaddockCoords);
 	// alert(newPaddockCoords.getAt(0).lat());
 
 	// add this paddock to DB.
-	addPaddock(newPaddockCoords);
+	addPaddock(newPaddockCoords,pid,pname,pfc,pdescription);
 
 	// clear all that new paddock array.
 	newPaddockCoords.clear();
@@ -83,7 +201,7 @@ function showNewPaddock(path) {
 }
 
 //use ajax to add this paddock to DB and redraw the map_canvas.
-function addPaddock(path) {
+function addPaddock(path,pid,pname,pfc,pdescription) {
 	
 	//calculate the center of this polygon.
 	var polyBound = new google.maps.LatLngBounds();
@@ -107,10 +225,21 @@ function addPaddock(path) {
 		newPaddockCorners : jsonPath,
 		newPaddockCenterLat : polyBound.getCenter().lat(),
 		newPaddockCenterLon : polyBound.getCenter().lng(),
-		newPadoockArea : polyArea
+		newPadoockArea : polyArea,
+		newPId : pid,
+		newPName : pname,
+		PFeedCapacity : pfc,
+		PDescription : pdescription
 	};
-	$.post(url, param, function() {
+	$.post(url, param, function(brandNewPaddockID) {
 		initialize();
+		$(document).ready(function() {
+			$("#map_canvas").data("focusPaddockID", brandNewPaddockID);
+			showSelectedPaddockInfo();
+			setTimeout(function() {
+				highLightPaddock(brandNewPaddockID);
+			}, 500);
+		});
 	});	
 }
 
@@ -128,50 +257,48 @@ function deletePaddock(selectedPId) {
 	$.post(url, param, function() {
 		initialize();
 	});
-	//To reload the paddock info jsp.
-	$(document).ready(function() {
-		update_tabular_data();
-	});
 }
 
 //Show selected paddock basic info in a jsp page, load it into main page.
-function showSelectedPaddockInfo() {
+function showSelectedPaddockInfo(pid) {
 	console.log("SelectedPID: " + $("#map_canvas").data("focusPaddockID"));
 	var url = "Paddock/ShowPaddock";
 	var param = {
-			selectedPId: $("#map_canvas").data("focusPaddockID")
+			selectedPId: pid
 	};
 //	$.getJSON(url, param, function(singlePaddock) {
 //		console.log(singlePaddock);
 //		update_paddockTodo_data();
 //		update_paddockInfo_data();
 //	});
-	$.ajax({
-		url: url,
-		dataType: 'json',
-		data: param,
-		success: function(singlePaddock) {
+	$.post(url, param, function(singlePaddock) {
+		$(document).ready(function() {
 			console.log(singlePaddock);
 			update_paddockTodo_data();
 			update_paddockInfo_data();
-		},
-		error : function(message){
-			$(".paddockTodoDIV").addpend("<strong>" + message + "</strong>");
-		}
+		});
 	});
 }
 
 //reload the paddockinfo forms.
 function update_paddockInfo_data(){
-//	$('.tabular-data').load('paddockInfo.jsp');
-	$(".paddockInfoDIV").load('paddockInfo.jsp');
+
+	$(document).ready(function() {
+		setTimeout(function() {
+			$(".paddockInfoDIV").load('paddockInfo.jsp');
+		}, 500);
+	});
 	console.log("update_paddockInfo_data");
 }
 
 //reload the paddockTodo forms.
 function update_paddockTodo_data(){
-//	$('.todo-data').load('paddockTodo.jsp');
-	$(".paddockTodoDIV").load('paddockTodo.jsp');
+
+	$(document).ready(function() {
+		setTimeout(function() {
+			$(".paddockTodoDIV").load('paddockTodo.jsp');
+		}, 500);
+	});
 	console.log("update_paddockTodo_data");
 }
 
@@ -179,7 +306,7 @@ function update_paddockTodo_data(){
 function paddockGridTest() {
 	$("#gridTable").jqGrid({
 		url: "PaddockGrid/ShowPaddockGrid",
-		datatype: "json",
+		datatype: "json",//XML
 		mtype: "GET",
 		height: 150,
 		autowidth: true,

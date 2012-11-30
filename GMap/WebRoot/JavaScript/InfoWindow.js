@@ -15,7 +15,15 @@ function labelTodo(selectedPaddockId) {
 	$.post(url, param, showPaddockTodos);
 }
 
-//To unserialize json object.
+function labelBasic(selectedPaddockId) {
+	var url = "ShowInfo/ShowPaddockBasicInfo";
+	var param = {
+			paddockId : selectedPaddockId,
+	};
+	$.post(url, param, showPaddockBasicInfos);
+}
+
+//To unserialize json type PaddockGrazings data.
 function showPaddockGrazings(paddockGrazings) {
 	console.log(paddockGrazings);
 	var jsonPaddockGrazings = eval("(" + paddockGrazings + ")");
@@ -41,7 +49,7 @@ function showPaddockGrazings(paddockGrazings) {
 	});
 }
 
-//To unserialize json object.
+//To unserialize json type PaddockTodos data.
 function showPaddockTodos(paddockTodos) {
 	console.log(paddockTodos);
 	var jsonPaddockTodos = eval("(" + paddockTodos + ")");
@@ -55,6 +63,20 @@ function showPaddockTodos(paddockTodos) {
 		strHTML += "</tr>";
 	});
 	$("#TodoData").html(strHTML);
+}
+
+//To unserialize json type PaddockBasicInfo data.
+function showPaddockBasicInfos(paddockBasicInfos) {
+	console.log(paddockBasicInfos);
+	var jsonPaddockBasicInfos = eval("(" + paddockBasicInfos + ")");
+	$("#BasicInfoData").empty();
+	var strHTML = "";
+	strHTML += "<tr><td class='BasicInfoDataTd'>" + "Paddock ID" + "</td><td>" + jsonPaddockBasicInfos.pid + "</td></tr>";
+	strHTML += "<tr><td class='BasicInfoDataTd'>" + "Paddock Name" + "</td><td>" + jsonPaddockBasicInfos.pName + "</td></tr>";
+	strHTML += "<tr><td class='BasicInfoDataTd'>" + "Paddock Area" + "</td><td>" + jsonPaddockBasicInfos.pArea + "</td></tr>";
+	strHTML += "<tr><td class='BasicInfoDataTd'>" + "Description" + "</td><td>" + jsonPaddockBasicInfos.pDescription + "</td></tr>";
+	strHTML += "<tr><td class='BasicInfoDataTd'>" + "FeedCapability&nbsp;&nbsp;" + "</td><td>" + jsonPaddockBasicInfos.pFeedCapability + "</td></tr>";
+	$("#BasicInfoData").html(strHTML);
 }
 
 //J-Grid Test

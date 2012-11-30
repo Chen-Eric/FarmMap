@@ -8,10 +8,10 @@
 	cursor: pointer;
 	text-align: center;
 	text-decoration: none;
-	width:91%;
+	width:100%;
 	height:auto;
 	font: 20px/100% Arial, Helvetica, sans-serif;
-	padding: .5em 2em .55em;
+	padding: .5em .8em .55em;
 	text-shadow: 0 1px 1px rgba(0,0,0,.3);
 	-webkit-border-radius: .5em; 
 	-moz-border-radius: .5em;

@@ -154,10 +154,11 @@ function drawPaddock(path, paddockId) {
 		highLightPaddock(this.get("pid"));
 		labelGrazing(this.get("pid"));
 		labelTodo(this.get("pid"));
+		labelBasic(this.get("pid"));
 		
 		$("#map_canvas").data("focusPaddockID", this.get("pid"));
 		console.log("focusPaddockID:" + $("#map_canvas").data("focusPaddockID"));
-		showSelectedPaddockInfo();
+		showSelectedPaddockInfo(this.get("pid"));
 		
 	});
 	tempVariable.setMap(map);

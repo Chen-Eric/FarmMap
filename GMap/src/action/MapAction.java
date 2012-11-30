@@ -85,7 +85,7 @@ public class MapAction extends BaseAction {
 //			cookies.put("test", "test");
 //			response.addCookie(new Cookie("test", "test"));
 			this.paddocksFromDB = jsonCorners.toString();
-//			session.put("paddocksFromDBonPage", listPaddocksOfFarm);
+			session.put("paddocksFromDBonPage", listPaddocksOfFarm);
 			System.out.println(paddocksFromDB);
 			return SUCCESS;
 		}

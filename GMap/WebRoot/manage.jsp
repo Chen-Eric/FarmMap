@@ -31,13 +31,16 @@
 
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=false">
+	
 </script>
 
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false">
+	
 </script>
 <script type="text/javascript"
 	src="JavaScript/v3_epoly_sphericalArea.js">
+	
 </script>
 
 <script type="text/javascript" src="JavaScript/maplabel.js"></script>
@@ -59,21 +62,29 @@
 <body onload="initialize()">
 	<div id="PageBody">
 		<div id="Sidebar">
-			<p align="center">
-				<button class="button white" onclick="forwardPage('index')">Index&nbsp;Page</button>
-			</p>
-			<p align="center">
-				<button class="button green" onclick="forwardPage('welcome')">Welcome&nbsp;Page</button>
-			</p>
-			<p align="center">
-				<button class="button blue" onclick="forwardPage('map')">Manage&nbsp;Map</button>
-			</p>
-			<p align="center">
-				<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
-			</p>
+			<table align="center">
+				<tr>
+					<td>
+						<p align="center">
+							<button class="button white" onclick="forwardPage('index')">Home</button>
+						</p></td>
+					<td>
+						<p align="center">
+							<button class="button green" onclick="forwardPage('welcome')">Welcome&nbsp;Page</button>
+						</p></td>
+					<td>
+						<p align="center">
+							<button class="button blue" onclick="forwardPage('map')">Manage&nbsp;Map</button>
+						</p></td>
+					<td>
+						<p align="center">
+							<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
+						</p></td>
+				</tr>
+			</table>
 			<div class="paddockTodoDIV">
-				<jsp:include page="paddockTodo.jsp" />			
-			</div>	
+				<jsp:include page="paddockTodo.jsp" />
+			</div>
 			<!-- 
 				
 			 -->

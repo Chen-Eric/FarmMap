@@ -32,9 +32,11 @@ public class PaddockAction extends BaseAction {
 	private double newPaddockCenterLon;
 	private String PDescription;
 	private int PFeedCapacity;
-	private Double selectedPArea;	
+	private Double selectedPArea;
 	private Double newPadoockArea;
 	private String selectedPaddock;
+	
+	private String brandNewPaddockID;
 
 	public String getNewPaddockCorners() {
 		return newPaddockCorners;
@@ -108,7 +110,6 @@ public class PaddockAction extends BaseAction {
 		PFeedCapacity = pFeedCapacity;
 	}
 
-
 	public Double getSelectedPArea() {
 		return selectedPArea;
 	}
@@ -133,25 +134,35 @@ public class PaddockAction extends BaseAction {
 		this.selectedPaddock = selectedPaddock;
 	}
 
+	public String getBrandNewPaddockID() {
+		return brandNewPaddockID;
+	}
+
+	public void setBrandNewPaddockID(String brandNewPaddockID) {
+		this.brandNewPaddockID = brandNewPaddockID;
+	}
+
 	/**
 	 * @author Chen
 	 */
-	public String showSelectedPaddock(){
-		
+	public String showSelectedPaddock() {
+
 		farmId = (Short) session.get("farmId");
 		System.out.println("selectedPId_In_Paddok_Action: " + selectedPId);
-		
-		Paddock singlePaddock = paddockService.findPaddockByFIDandPID(selectedPId, farmId);
-		
+
+		Paddock singlePaddock = paddockService.findPaddockByFIDandPID(
+				selectedPId, farmId);
+
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		Gson gson = gsonBuilder.registerTypeAdapter(Paddock.class, new PaddockAdapter()).create();
-		
+		Gson gson = gsonBuilder.registerTypeAdapter(Paddock.class,
+				new PaddockAdapter()).create();
+
 		this.selectedPaddock = gson.toJson(singlePaddock);
 		session.remove("selectedPaddock");
 		session.put("singlePaddock", singlePaddock);
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * @author Chen
 	 * @return "addPaddock"
@@ -159,9 +170,15 @@ public class PaddockAction extends BaseAction {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String addPaddock() {
 
+		System.out.println("----New Paddock Arguments Begin---");
 		System.out.println("JsonFromWeb: " + newPaddockCorners);
 		System.out.println("CenterLat: " + newPaddockCenterLat);
 		System.out.println("CenterLon: " + newPaddockCenterLon);
+		System.out.println("newPId: " + newPId);
+		System.out.println("newPName: " + newPName);
+		System.out.println("PFeedCapacity: " + PFeedCapacity);
+		System.out.println("PDescription: " + PDescription);
+		System.out.println("----New Paddock Arguments End---");
 
 		Gson gson = new Gson();
 
@@ -195,18 +212,29 @@ public class PaddockAction extends BaseAction {
 
 		System.out.println("How many paddock vacancy: " + pidVavancy.size());
 
+		/**
+		 * Very Important!
+		 * Test the newPID from user input is available or not.
+		 */
+		Short newPid = (Short) pidVavancy.get(0);
+		if (pidVavancy.contains(newPId)) {
+			newPid = (short) newPId;
+		}
+		
 		if (pidVavancy.size() > 0) {
-			Short newPid = (Short) pidVavancy.get(0);
+			
 			System.out.println("The new Paddock FID : " + farmId);
 			System.out.println("The new Paddock PID: " + newPid);
-			paddockService.addPaddockByFarmId(farmId, newPid, "f" + farmId
-					+ "p" + newPid, newPaddockCenterLat, newPaddockCenterLon,
-					null, (short) 10, newPadoockArea);
+			paddockService.addPaddockByFarmId(farmId, newPid, newPName,
+					newPaddockCenterLat, newPaddockCenterLon, PDescription, (short)PFeedCapacity,
+					newPadoockArea);
 			for (Corner corner : lc) {
 				cornerService.addCorner(farmId, newPid, corner);
 			}
 		}
-
+		
+		this.brandNewPaddockID = newPid.toString();
+		
 		return SUCCESS;
 	}
 
@@ -239,7 +267,7 @@ public class PaddockAction extends BaseAction {
 		System.out.println("Selected PID: " + selectedPId);
 
 		List<Paddock> lp = (List<Paddock>) session.get("paddocksFromDBonPage");
-
+		
 		if (newPId == selectedPId) {
 
 			System.out.println("Same pid! Just Update the previous one.");
@@ -253,12 +281,18 @@ public class PaddockAction extends BaseAction {
 					paddockService.updatePaddock(paddock);
 				}
 			}
+			
+			Paddock singlePaddock = paddockService.findPaddockByFIDandPID(
+					selectedPId, farmId);
+			session.remove("selectedPaddock");
+			session.put("singlePaddock", singlePaddock);
+			
 			return SUCCESS;
 		} else {
 
 			Paddock newPaddock = new Paddock();
 			boolean isNewPIDused = false;
-			
+
 			System.out.println("different newPID!+++++");
 			for (Paddock paddock : lp) {
 				if (paddock.getId().getPId().equals((short) newPId)) {
@@ -289,12 +323,17 @@ public class PaddockAction extends BaseAction {
 						newPName, newPaddock.getPCenterLat(),
 						newPaddock.getPCenterLon(),
 						newPaddock.getPDescription(),
-						newPaddock.getPFeedCapacity(),
-						newPaddock.getPArea());
+						newPaddock.getPFeedCapacity(), newPaddock.getPArea());
 				for (Corner corner : lc) {
 					System.out.println(corner.getId());
 					cornerService.addCorner(farmId, (short) newPId, corner);
 				}
+				
+				Paddock singlePaddock = paddockService.findPaddockByFIDandPID(
+						(short) newPId, farmId);
+				session.remove("selectedPaddock");
+				session.put("singlePaddock", singlePaddock);
+				
 				return SUCCESS;
 			}
 		}

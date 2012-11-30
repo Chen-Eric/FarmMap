@@ -21,7 +21,7 @@
 				<td id="feed">FeedCapicity</td>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody align="left">
 		
 			<s:form action="EditPaddock" namespace="/Paddock" method="post">
 				<s:hidden name="selectedPId" value="%{#session.singlePaddock.Id.PId}">
@@ -34,17 +34,17 @@
 				<td>
 					<table>
 						<s:textfield name="newPId"
-							value="%{#session.singlePaddock.Id.PId}" size="1px" />
+							value="%{#session.singlePaddock.Id.PId}" size="2px"/>
 					</table></td>
 				<td><table>
 						<s:textfield name="newPName"
-							value="%{#session.singlePaddock.PName}" size="5px" />
+							value="%{#session.singlePaddock.PName}" size="8px" />
 					</table>
 				</td>
 				<td>
 					<table>
 						<s:textfield name="PDescription"
-							value="%{#session.singlePaddock.PDescription}" size="6px" />
+							value="%{#session.singlePaddock.PDescription}" size="10px" />
 					</table></td>
 				<td>
 					<table>

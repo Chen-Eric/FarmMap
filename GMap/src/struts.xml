@@ -93,6 +93,9 @@
 	<!-- Paddock Action -->
 	<package name="PaddockManager" namespace="/Paddock" extends="struts-default, json-default">
 		<action name="AddPaddock" class="PaddockAction" method="addPaddock">
+			<result name="success" type="json">
+				<param name="root">brandNewPaddockID</param>
+			</result>
 		</action>
 		<action name="DeletePaddock" class="PaddockAction" method="deletePaddock">
 		</action>

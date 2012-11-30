@@ -50,11 +50,6 @@
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
 
-<!-- 
-<script type="text/javascript" src="JavaScript/jquery.jqGrid.min.js"></script>
-<script type="text/javascript" src="JavaScript/grid.locale-en.js"></script>
- -->
-
 <script type="text/javascript">
 	
 </script>
@@ -63,28 +58,31 @@
 
 <body onload="initialize()">
 	<div id="PageBody">
-		<div id="Sidebar">
+		<div id="Sidebar" align="center">
+			<table border="0">
+			<tr>
+			<td>
 			<p align="center">
-				<button class="button white" onclick="forwardPage('index')">Index&nbsp;Page</button>
+				<button class="button white" onclick="forwardPage('index')">Home</button>
 			</p>
+			</td>
+			<td>
 			<p align="center">
 				<button class="button blue" onclick="forwardPage('manage')">Manage&nbsp;Paddocks</button>
 			</p>
+			</td>
+			<td>
 			<p align="center">
-				<button class="button orange" onclick="completePaddock()">Complete&nbsp;Paddock</button>
+				<button class="button red" onclick="exit()">Exit</button>
 			</p>
-			<p align="center">
-				<button class="button green" onclick="startNewPaddock()">Add&nbsp;Paddock</button>
-			</p>
-			<p align="center">
-				<button class="button rosy" onclick="undoLastMark()">Remove&nbsp;Last&nbsp;Corner</button>
-			</p>
-			<p align="center">
-				<button class="button gray" onclick="deleteSelectedPaddock()">Delete&nbsp;Paddock</button>
-			</p>
-			<p align="center">
-				<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
-			</p>
+			</td>
+			</tr>
+			</table>
+			
+			<!-- All web page components for paddock CRUD functionality. -->
+			<jsp:include page="paddockEdit.jsp"/>
+			
+			
 			<div class="paddockInfoDIV">
 				<jsp:include page="paddockInfo.jsp" />				
 			</div>		

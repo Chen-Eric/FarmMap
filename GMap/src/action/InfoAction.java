@@ -10,12 +10,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import common.GrazingAdapter;
+import common.PaddockAdapter;
 import common.StockTypeFormatter;
 import common.TodoAdapter;
 import common.TodoFormatter;
 
 import domain.Farm;
 import domain.Grazing;
+import domain.Paddock;
 import domain.StockType;
 import domain.Todo;
 
@@ -97,7 +99,15 @@ public class InfoAction extends BaseAction {
 	 */
 	public String showPaddockBasicInfo() {
 
-		return null;
+		short farmId = (Short) session.get("farmId");
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.registerTypeAdapter(Paddock.class, new PaddockAdapter()).create();
+		
+		Paddock paddock = paddockService.findPaddockByFIDandPID((short) paddockId, farmId);
+		
+		this.paddockBasicInfo = gson.toJson(paddock);
+		return SUCCESS;
 	}
 
 	/**

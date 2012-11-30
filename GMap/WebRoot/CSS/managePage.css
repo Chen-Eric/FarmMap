@@ -100,11 +100,17 @@ body {
 	border: 1px solid;
 }
 
+.BasicInfoDataTd {
+	font-size: 13px;
+	width: auto;
+	text-align: center;
+}
+
 #tddatein {
 	font-size: 15px;
 	weight: 30%;
 	margin-right: 10px;
-	text-align: center;
+	text-align: left;
 }
 
 #tddateout {

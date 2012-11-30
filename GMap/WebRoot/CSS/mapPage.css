@@ -46,7 +46,7 @@ body {
 
 #Sidebar {
 	background: #FFCC00;
-	width: 30em;
+	width: 32em;
 	height: 99%;
 	margin: 1%;
 	float: left;
@@ -189,4 +189,11 @@ body {
 	width: 130px;
 	text-align: center;
 }
-	
+#paddockMsgDIV{
+	font: 15px;
+	color: red;
+}
+#paddockMsgDialog{
+	font: 14px;
+	color: red;
+}

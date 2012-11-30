@@ -28,7 +28,7 @@
 <sj:head compressed="false" />
 
 <link rel="stylesheet" type="text/css" href="CSS/button.css">
-<link rel="stylesheet" type="text/css" href="CSS/page.css">
+<link rel="stylesheet" type="text/css" href="CSS/managePage.css">
 
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=false">
@@ -70,12 +70,8 @@
 			<p align="center">
 				<button class="button blue" onclick="forwardPage('manage')">Manage&nbsp;Paddocks</button>
 			</p>
-
-			<p align="center">
-				<button class="button black" onclick="%{#todoGridActionURL}">Test_Of_Gird</button>
-			</p>
 			<fieldset>
-				<legend>Paddock</legend>
+				<legend style="font-size: 13px">Paddock</legend>
 				<p align="center">
 					<button class="button orange" onclick="completePaddock()">Complete</button>
 				</p>
@@ -91,12 +87,17 @@
 			</fieldset>
 			<div id="Infowindow">
 				<sj:tabbedpanel id="infotabs" spinner="Loading...">
-
+				
+					<sj:tab id="Basic" target="tBasic" label="Basic" />
 					<sj:tab id="Todo" target="tTodo" label="Todo" />
 					<sj:tab id="Grazing" target="tGrazing" label="Grazing" />
 
-					<sj:tab id="Test" target="tTest" label="Test" />
-
+					<div id="tBasic">
+						<table id="BasicInfos" align="center" title="PaddockBasicInfo" class="tabDivTable">
+							<tbody id="BasicInfoData" class="tbody"></tbody>
+						</table>
+					</div>
+					
 					<div id="tGrazing">
 						<table id="Grazings" align="center" title="Grazings"
 							class="tabDivTable">
@@ -172,9 +173,6 @@
 							<sjg:gridColumn name="TDone" index="TDone" title="State" sortable="false"></sjg:gridColumn>
 						</sjg:grid>
 						
-					</div>
-					<div id="tTest">
-						<div id="sc"></div>
 					</div>
 				</sj:tabbedpanel>
 			</div>
