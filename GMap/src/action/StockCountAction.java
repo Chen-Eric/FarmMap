@@ -12,10 +12,10 @@ import com.google.gson.GsonBuilder;
 import common.StockCountAdapter;
 
 import domain.StockCount;
+import domain.StockType;
 
 /**
  * @author Chen
- *
  */
 public class StockCountAction extends BaseAction{
 	/**
@@ -32,6 +32,7 @@ public class StockCountAction extends BaseAction{
 	private String newSCCount;
 	
 	private String stockCountsInDB;
+	private String stockCount;
 	
 	public int getSelectedSCId() {
 		return selectedSCId;
@@ -97,6 +98,14 @@ public class StockCountAction extends BaseAction{
 		this.stockCountsInDB = stockCountsInDB;
 	}
 
+	public String getStockCount() {
+		return stockCount;
+	}
+
+	public void setStockCount(String stockCount) {
+		this.stockCount = stockCount;
+	}
+
 	/**
 	 * @author Chen
 	 * @return SUCCESS and json format string.
@@ -112,6 +121,20 @@ public class StockCountAction extends BaseAction{
 		Gson gson = gsonBuilder.registerTypeAdapter(StockCount.class, new StockCountAdapter()).create();
 		
 		this.stockCountsInDB = gson.toJson(lsc);
+		return SUCCESS;
+	}
+	
+	/**
+	 * @author Chen
+	 */
+	public String showSCByGrazing(){
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.registerTypeAdapter(StockCount.class, new StockCountAdapter()).create();
+		
+		List<StockCount> lsc = stockCountService.listStockcountsByGrazingId((short) selectedGId);
+		
+		this.stockCount = gson.toJson(lsc);
 		return SUCCESS;
 	}
 	
@@ -147,4 +170,5 @@ public class StockCountAction extends BaseAction{
 		
 		return SUCCESS;
 	}
+	
 }

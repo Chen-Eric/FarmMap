@@ -88,4 +88,9 @@ public class StockTypeService implements IStockTypeService {
 		stockTypeDAO.updateStockType(stockType);
 	}
 
+	@Override
+	public StockType findStockTypeBySTID(short stockTypeId) {
+		return stockTypeDAO.findById(stockTypeId);	
+	}
+
 }

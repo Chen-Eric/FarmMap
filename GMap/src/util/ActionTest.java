@@ -39,6 +39,7 @@ import domain.Farm;
 import domain.Grazing;
 import domain.Paddock;
 import domain.PaddockId;
+import domain.StockType;
 import domain.Todo;
 
 import action.BaseAction;
@@ -147,5 +148,6 @@ public class ActionTest extends BaseAction {
 //		Gson gson = gsonBuilder.registerTypeAdapter(Paddock.class, new PaddockAdapter()).create();
 //		
 //		System.out.println(gson.toJson(listPaddocksOfFarm));
+		
 	}
 }

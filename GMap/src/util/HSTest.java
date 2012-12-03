@@ -145,17 +145,22 @@ public class HSTest {
 //		List<StockCount> lsc = stockCountDAO.findByGrazingId(2);
 //		System.out.println(lsc.size());
 		
-		Short stockTypeSId = 4;
-		int grazingGId = 1;
-		String scCount = "wo";
+//		Short stockTypeSId = 4;
+//		int grazingGId = 1;
+//		String scCount = "wo";
+//		
+//		StockCountId stockCountId = new StockCountId();
+//		stockCountId.setStockTypeSId(stockTypeSId);
+//		stockCountId.setGrazingGId(grazingGId);
+//		StockCount stockCount = new StockCount();
+//		stockCount.setId(stockCountId);
+//		stockCount.setScCount(scCount);
+//		stockCountDAO.save(stockCount);
 		
-		StockCountId stockCountId = new StockCountId();
-		stockCountId.setStockTypeSId(stockTypeSId);
-		stockCountId.setGrazingGId(grazingGId);
-		StockCount stockCount = new StockCount();
-		stockCount.setId(stockCountId);
-		stockCount.setScCount(scCount);
-		stockCountDAO.save(stockCount);
+//		List<StockCount> lsc = stockcountService.listStockcountsByGrazingId((short) 2);
+//		
+//		System.out.println(lsc.size());
+		
 	}
 
 }

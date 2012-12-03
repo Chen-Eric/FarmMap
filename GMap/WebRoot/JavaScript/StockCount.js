@@ -1,7 +1,6 @@
 /**
  * for stock-count functionality.
  */
-
 function labelStockCount(selectedGId) {
 	var url = "StockCount/ShowStockCountByPaddock";
 	var param = {

@@ -5,6 +5,12 @@ package action;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import common.StockTypeAdapter;
+
+import net.sf.json.util.JSONBuilder;
+
 import domain.StockType;
 
 /**
@@ -18,6 +24,8 @@ public class StockTypeAction extends BaseAction{
 	private int stockUnit;
 	private String selectedStockType;
 	private int selectedStockUnit;
+	
+	private String stocktype;
 	
 	public int getStockTypeID() {
 		return stockTypeID;
@@ -60,12 +68,31 @@ public class StockTypeAction extends BaseAction{
 	}
 
 	
-	public String showStockType(){
+	public String getStocktype() {
+		return stocktype;
+	}
+
+	public void setStocktype(String stocktype) {
+		this.stocktype = stocktype;
+	}
+
+	public String showStockTypes(){
 		
 		List<StockType> lst = stockTypeService.listAllStocks();
 		
 		session.put("stockTypesFromDB", lst);
 		return "show";
+	}
+	
+	public String showStockType(){
+		
+		StockType st = stockTypeService.findStockTypeBySTID((short) stockTypeID);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		Gson gson = gsonBuilder.registerTypeAdapter(StockType.class, new StockTypeAdapter()).create();
+		
+		this.stocktype = gson.toJson(st);
+		return SUCCESS;
 	}
 	
 	public String addStockType(){

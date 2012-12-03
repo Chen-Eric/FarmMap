@@ -27,5 +27,7 @@ public interface IStockTypeService {
 	
 	public List<StockType> findStockTypeByType(String type);
 	
+	public StockType findStockTypeBySTID(short stockTypeId);
+	
 	public List<StockType> listAllStocks();
 }

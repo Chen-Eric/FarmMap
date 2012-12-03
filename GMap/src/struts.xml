@@ -67,6 +67,7 @@
 			<result name="success" type="redirect">/manage.jsp</result>
 			<result name="error" type="redirect">/manage.jsp</result>
 		</action>
+		
 		<action name="EditPaddockTodo" class="TodoAction" method="deletePaddockTodo">
 			<result name="success" type="redirect">/manage.jsp</result>
 			<result name="error" type="redirect">/manage.jsp</result>
@@ -80,9 +81,17 @@
 				<param name="root">stockCountsInDB</param>
 			</result>
 		</action>
+		
+		<action name="ShowStockCountByGrazing" class="StockCountAction" method="showSCByGrazing">
+			<result name="success" type="json">
+				<param name="root">stockCount</param>
+			</result>
+		</action>
+		
 		<action name="EditStockCount" class="StockCountAction" method="editSC">
 			
 		</action>
+		
 		<action name="DeleteStockCount" class="StockCountAction" method="deleteSC">
 		
 		</action>
@@ -135,14 +144,19 @@
 		</action>
 	</package>
 	
-	<package name="StockManager" namespace="/StockManage" extends="struts-default">
+	<package name="StockManager" namespace="/StockManage" extends="struts-default,json-default">
 		<action name="StockManage" class="StockTypeAction">
 			<result name="add" type="redirect">/stockType.jsp</result>
 			<result name="update" type="redirect">/stockType.jsp</result>
 			<result name="delete" type="redirect">/stockType.jsp</result>
 		</action>
-		<action name="showStockTypes" method="showStockType" class="StockTypeAction">
+		<action name="showStockTypes" method="showStockTypes" class="StockTypeAction">
 			<result name="show">/stockType.jsp</result>
+		</action>
+		<action name="shwoStockType" class="StockTypeAction" method="showStockType">
+			<result name="success" type="json">
+				<param name="root">stocktype</param>
+			</result>
 		</action>
 	</package>
 </struts>

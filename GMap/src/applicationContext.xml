@@ -157,7 +157,7 @@
 		</property>
 	</bean>
 	
-	<bean name="PaddockAction" class="action.PaddockAction">
+	<bean name="PaddockAction" class="action.PaddockAction" scope="prototype">
 		<property name="paddockService">
 			<ref bean="PaddockService"/>
 		</property>
@@ -172,7 +172,7 @@
 		</property>
 	</bean>
 	
-	<bean name="StockTypeAction" class="action.StockTypeAction">
+	<bean name="StockTypeAction" class="action.StockTypeAction" scope="prototype">
 		<property name="stockTypeService">
 			<ref bean="StockTypeService"/>
 		</property>
@@ -190,7 +190,7 @@
 		</property>
 	</bean>
 	
-	<bean name="StockCountAction" class="action.StockCountAction">
+	<bean name="StockCountAction" class="action.StockCountAction" scope="prototype">
 		<property name="stockCountService">
 			<ref bean="StockCountService"/>
 		</property>

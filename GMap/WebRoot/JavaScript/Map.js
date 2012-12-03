@@ -26,7 +26,8 @@ function initialize() {
 	PaddockManager();
 	
 	//MarkerImage Test
-	var iconimage = 'Icon/bull1.png';
+//	var iconimage = 'Icon/bull1.png';
+	var iconimage = 'Icon/' + 'bull2' + '.png';
 	var markerIcon = new google.maps.Marker({
 		position: mapCenter,
 		icon: iconimage,
@@ -159,7 +160,7 @@ function drawPaddock(path, paddockId) {
 		$("#map_canvas").data("focusPaddockID", this.get("pid"));
 		console.log("focusPaddockID:" + $("#map_canvas").data("focusPaddockID"));
 		showSelectedPaddockInfo(this.get("pid"));
-		
+		locateSelectedPaddockCenter(this.get("pid"));
 	});
 	tempVariable.setMap(map);
 }
