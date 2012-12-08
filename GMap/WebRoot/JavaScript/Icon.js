@@ -2,6 +2,7 @@
 var selectedPaddockCenterLat;
 var selectedPaddockCenterLon;
 var iconsOnMap = new google.maps.MVCArray();
+var positionCounter = 0;
 
 // receive the PaddockID from google map event listener.
 function locateSelectedPaddockCenter(pid) {
@@ -44,38 +45,51 @@ function getGrazingSC(selectedGId) {
 		var jsonStockCounts = eval("(" + StockCounts + ")");
 		$.each(jsonStockCounts, function() {
 			console.log("StockCountsID: " + this.stid);
-			getStockTypeBySTID(this.stid);
+			getStockTypeBySTID(this.stid, this.scCount);
 		});
 	});
 }
 
 // for stocktype name.
-function getStockTypeBySTID(stid) {
+function getStockTypeBySTID(stid, scCount) {
 	var url = "StockManage/shwoStockType";
 	var param = {
 		stockTypeID : stid
 	};
 	$.getJSON(url, param, function(stockType) {
 		var jsonStockType = eval("(" + stockType + ")");
-		showStockTypeIcon(jsonStockType);
+		showStockTypeIcon(jsonStockType, scCount);
 	});
 }
 
 // choose the icon image according to the selected Grazing.
-function showStockTypeIcon(stockType) {
+function showStockTypeIcon(stockType, scCount) {
 	var iconImageURL = 'Icon/' + stockType.st + '.png';
-	var selectedPaddockCenter = new google.maps.LatLng(selectedPaddockCenterLat
-			+ Math.random() / 1000, selectedPaddockCenterLon - Math.random()
-			/ 500);
+	var stockTypeXUnit = stockType.scUnit + " X " + scCount;
+	console.log(stockTypeXUnit);
+	positionCounter++;
+	var selectedPaddockCenter = positionCalculator(selectedPaddockCenterLat, selectedPaddockCenterLon);
 	var iconMarker = new google.maps.Marker({
 		position : selectedPaddockCenter,
 		icon : iconImageURL,
 		map : map,
-		// animation: BOUNCD,
-		// clickable: true,
+		clickable: true,
 		draggable : false,
 		visible : true
 	});
+	
+	var iconText = new MapLabel({
+		text: stockTypeXUnit,
+		position : selectedPaddockCenter,
+		fontsize: 12,
+		maxZoom: 18,
+		minZoom: 16,
+		zIndex: 1,
+		strokeColor:'#CCccFF',
+		map: map
+	});
+	
+	iconsOnMap.push(iconText);
 	iconsOnMap.push(iconMarker);
 }
 
@@ -84,4 +98,43 @@ function removeIcons() {
 		iconsOnMap.getAt(index).setMap(null);
 	});
 	iconsOnMap.clear();
+	positionCounter = 0;
+}
+
+//For stockCount icon positions.
+function positionCalculator(lat, lon) {
+	
+	var position;
+	console.log("positionCounter:" + positionCounter);
+	switch (positionCounter) {
+	case 1:
+		position = new google.maps.LatLng(lat, lon + 0.0008); 
+		break;
+	case 2:
+		position = new google.maps.LatLng(lat + 0.0008, lon); 
+		break;
+	case 3:
+		position = new google.maps.LatLng(lat, lon - 0.0008); 
+		break;
+	case 4:
+		position = new google.maps.LatLng(lat - 0.0008, lon); 
+		break;
+	case 5:
+		position = new google.maps.LatLng(lat + 0.00075, lon + 0.00075); 
+		break;
+	case 6:
+		position = new google.maps.LatLng(lat + 0.00075, lon - 0.00075); 
+		break;
+	case 7:
+		position = new google.maps.LatLng(lat - 0.00075, lon - 0.0007); 
+		break;
+	case 8:
+		position = new google.maps.LatLng(lat - 0.00075, lon + 0.0007); 
+		break;
+
+	default: 
+		break;
+	}
+	
+	return position;
 }

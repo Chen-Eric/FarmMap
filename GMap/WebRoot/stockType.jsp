@@ -18,6 +18,7 @@
 	<s:action name="show" namespace="/StockManage"/>
 	<table id="StockTypeTable">
 		<caption>StockType Management</caption>
+		<tbody>
 		<s:iterator value="#session.stockTypesFromDB" status="stockType" var="singleStockType">
 			<s:form action="StockManage" namespace="/StockManage">
 				<s:hidden name="stockTypeID" value="%{#singleStockType.SId}"></s:hidden>
@@ -46,7 +47,9 @@
 
 		</s:form>
 		</s:iterator>
-		
+		</tbody>
+		</table>
+		<table>
 		<!-- A form for add new stock type -->
 		<s:form action="StockManage">
 				<td>

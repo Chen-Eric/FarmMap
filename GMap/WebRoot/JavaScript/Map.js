@@ -25,19 +25,6 @@ function initialize() {
 	// Pane all paddocks.
 	PaddockManager();
 	
-	//MarkerImage Test
-//	var iconimage = 'Icon/bull1.png';
-	var iconimage = 'Icon/' + 'bull2' + '.png';
-	var markerIcon = new google.maps.Marker({
-		position: mapCenter,
-		icon: iconimage,
-//		map:map,
-//		animation: BOUNCD,
-		clickable: true,
-		draggable: false,
-		visible: true
-	});
-	
 	$(document).ready(function() {
 		paddockBasicInfoManager();
 	});
