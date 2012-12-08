@@ -1,0 +1,80 @@
+\documentclass[titlepage,a4paper]{article}
+\setcounter{page}{6}
+
+%head & foot
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{fullpage}
+\usepackage{listings}
+%\usepackage{indentfirst}
+
+\pagestyle{fancy}
+\setlength{\headsep}{25pt}
+\setlength{\headheight}{12pt}
+\setlength{\footskip}{30pt}
+\lhead{Special Topic}
+\rhead{Study Report}
+\lfoot{Massey University}
+\cfoot{page \thepage\ of \pageref{LastPage}}
+\rfoot{Chen Zheng}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\begin{document}
+\title{\Huge{Interactive Farm Map Project}\\ \huge{Chen Zheng Study Report}}
+\author{\Large{Chen Zheng} \\Student ID: 12087306}
+\date{September 11th, 2012}
+\maketitle
+%
+%
+\section{Special Topic Tasks}
+The objective of the special topic is to develop an initial prototype that demonstrates the essential interactivity and functionality of the wall map. This includes:\\
+\textbullet \ My overall propose of this project is to implement a MVC design pattern based website. For the View layout, I create some web pages as the interface to handle the web requests. For the Control part, my aim at implementing some nice and clear $javascript$ with $google.maps.API$ as a business manager to response those web requests. For the Model part, what am I propose to do is have a little try with $google.maps.FusionTablesLayout$. 
+\subsection{Locate and load the correct farm map from GoogleMaps}
+\textbullet \  Load the $google.maps.com/api/js$
+\subsection{Draw a set of paddocks on the map, whose coordinates are stored in xml files (1 per paddock)}
+\textbullet \  Put an array of lat\& lng into $google.maps.polygon's path$.
+\subsection{Provide for each paddock to be labelled with up to three pieces of data (e.g. name, area, stock count) one of which may be an image}
+\textbullet \ I tried to use $groundLayout$ to implement this functionality, but I failed. I do know I should call some $layouts$ to do this, but I am quite confused now.
+\subsection{Paddock data is persistent and updateable (stored in a database)}
+\textbullet \ I think we can use $Fussion Table Layers$ which is still experimental right now, but this object allows us to construct this object such as: $google.maps.FusionTablesLayer$ and put our $query sentance$ into its $options property$ like this: 
+\begin{lstlisting}[language=C]
+var layer = new google.maps.FusionTablesLayer({
+  query: {
+    select : 'attribute.Name',
+    from : 'table.Name',
+    where : 'trackName=Track_P1.xml'
+  },
+});
+\end{lstlisting}
+So if we can, we are be able to query and update data with $FusionTablesLayer$.\\
+Another option for this is to create an our own $database$ to provide data persistance.
+
+\subsection{The farm map may be updated by selecting a function on the LHS of the screen (running a database query), e.g. showing current location of cows}
+\textbullet \ Similarly, I prefer to use FusionTableLayer to do the data persistance function. And encoding the query things into the script file.
+\begin{enumerate}
+\item[a.] Some paddocks may be highlighted (e.g. border colour changed or area filled-in).\\
+\textbullet \ For these functions, we can call a method to modify the $property.fillColor$ or other $properties$ of the polygon DOM element. 
+\item[b.] Paddock labels may be changed to show different data.\\
+We can create some buttons which are associated with some methods to those query functionality.
+\end{enumerate}
+\subsection{If a paddock is touched (or clicked) on screen}
+\begin{enumerate}
+\item[a.] The paddock is highlighted.\\
+\textbullet \ The $google.maps.polygon$ object has some events which can be listened. So we can add listener to listen $mouse\ events$ to make this polygon clickable.
+\item[b.] Paddock data is displayed in a box in the LH corner of the screen.\\
+\textbullet \ We can create a $infoWindow$ to display these data which comes from the $querying\ of\ database\ or$ $FusionTablesLayer$.
+\item[c.] This data is updateable.\\
+\textbullet \ If we use these databases, we can update them in database. Then just redo the querying things and the $Web site$ will show these data.
+\end{enumerate}
+
+\section{The initial prototype:}
+\subsection{Should be implemented for paddocks,  but provision made for its extension to other farm entities e.g. buildings, or tracks}
+\textbullet \ 
+\subsection{Should be implemented to show (and update)   location and grazing history of stock but should be easily extendable to other queries}
+\textbullet \ 
+\subsection{Should support touch screen interactions}
+\textbullet \ 
+
+\end{document}

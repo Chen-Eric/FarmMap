@@ -54,7 +54,6 @@
 <script type="text/javascript" src="JavaScript/StockCount.js"></script>
 
 
-
 <script type="text/javascript">
 	
 </script>
@@ -142,6 +141,7 @@
 						</div>
 					</div>
 					<div id="tTodo">
+						<jsp:include page="paddockTodo.jsp" />
 						<!-- 
 							<table id="Todos" align="center" title="Todos" class="tabDivTable">
 							<thead>
@@ -153,7 +153,8 @@
 							</thead>
 							<tbody id="TodoData" class="tbody"></tbody>
 						</table>
-						 -->
+						
+						
 						<s:url var="todoGridActionURL" action="showPaddockTodoInGrid"
 							namespace="/TodoGrid" />
 
@@ -172,6 +173,7 @@
 							<sjg:gridColumn name="TDescription" index="TDescription" title="Note" sortable="false"></sjg:gridColumn>
 							<sjg:gridColumn name="TDone" index="TDone" title="State" sortable="false"></sjg:gridColumn>
 						</sjg:grid>
+						 -->
 						
 					</div>
 				</sj:tabbedpanel>

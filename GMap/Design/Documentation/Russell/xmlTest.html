@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Loop tracks</title>
+
+		<script type="javascript">
+            //var xmlDoc;
+            //test these functions
+            function test() {
+                xmlDoc = loadXML("Track_P1.xml");
+                //window.alert("getElementsByTagName: " + xmlDoc.getElementsByTagName("trkpt")[2].attributes.getNamedItem("lat").nodeValue);
+                //alert(window.ActiveXObject);
+                window.alert(xmlDoc.readyState);
+                //document.write(xmlDoc.getElementsByTagName("trkseg")[0].firstChild.nodeValue);
+                //retrieveLatLng();
+                //initialize();
+            }
+
+            //load xmlFiles function
+            function loadXML(xmlFile) {
+                if (window.ActiveXObject) {
+					
+                    xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+                    if (xmlDoc == null) {
+                        window.alert("MS_XML is not installed!");
+                    } else {
+                        xmlDoc.async = false;
+                        xmlDoc.load(xmlFile);
+                    }
+                }
+                //return xmlDoc;
+            }
+
+            //map
+            function initialize() {
+                myLatlng = new google.maps.LatLng(-39.70671, 174.96760);
+                myOptions = {
+                    zoom : 18,
+                    center : myLatlng,
+                    mapTypeId : google.maps.MapTypeId.SATELLITE //TERRAIN
+                };
+                map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+            }
+
+            //loop the codes and put lats and lngs into an array
+            function retrieveLatLng() {
+                coord = new array();
+                trkpts = xmlDoc.getElementsByTagName('trkpt');
+                for ( i = 0; i < l.length; i++) {
+                    coord[i] = google.maps.LatLng(x[i].attributes.getNamedItem("lat"), x[i].attributes.getNamedItem("lng"));
+                }
+                drawMap(coord);
+
+            }
+
+            function drawMap(coord) {
+                poly = new google.maps.Polygon({
+                    paths : coord,
+                    strokeColor : "#FF0000",
+                    strokeOpacity : 0.8,
+                    strokeWeight : 2,
+                    fillColor : "#FF0000",
+                    fillOpacity : 0.35,
+                    //title : "111"
+                });
+                ploy.setMap(map);
+            }
+
+		</script>
+
+	</head>
+	<body>
+		<script type="text/javascript">
+            test();
+		</script>
+	</body>
+</html>

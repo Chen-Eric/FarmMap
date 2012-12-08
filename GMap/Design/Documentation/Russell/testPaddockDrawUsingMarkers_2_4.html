@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test With Markers</title>
+
+<style type="text/css">
+		html {height : 150%}
+		body {height : 150%; margin : 0px; padding : 0px}
+		#map_canvas {height:150%}
+	</style>
+    
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false">
+    </script>
+    
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?libraries=geometry&sensor=false"></script> 
+    <script type="text/javascript" src="scripts/v3_epoly_sphericalArea.js">
+    </script> 
+    
+    <script type="text/javascript" src="scripts/maplabel.js"></script>
+
+       
+    <script type="text/javascript">
+	 var map;
+	 var xmlDoc;
+	 var paddockCoords;
+	 var myPaddock;
+	 var fenceline;
+	 var newPaddockCoords;
+	 var satelliteMapType;
+	 var myMouseListener;
+	 var myLatlng;
+	 var MY_ZOOM =18; 
+	 
+	function initialize(){
+		 myLatlng = new google.maps.LatLng(-39.70671, 174.96760);
+		 myOptions = {
+			zoom: MY_ZOOM,
+			center: myLatlng,
+			mapTypeId: google.maps.MapTypeId.SATELLITE //TERRAIN //
+		};
+		satelliteMapType= true;
+		map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+		
+		var contentString = 'Homestead';
+		var homestead = new MapLabel({
+		  //text: 'Homestead',
+		  text: contentString,	
+		  position: new google.maps.LatLng(-39.70671, 174.96760),
+		  map: map,
+		  fontSize: 12
+		});
+		homestead.set('position', new google.maps.LatLng(-39.70671, 174.96760));
+
+		var homesteadNo = new MapLabel({
+		  text: '342 9778',
+		  position: new google.maps.LatLng(-39.70681, 174.96760),
+		  map: map,
+		  fontSize: 12
+		});
+		homesteadNo.set('position', new google.maps.LatLng(-39.70681, 174.96760));
+
+		//Event Listener Test
+		google.maps.event.addListener(map, 'zoom_changed', function(){
+			setTimeout(restoreDefault, 1000);
+		});
+		function restoreDefault(){
+			map.setZoom(MY_ZOOM);
+			if(map.getZoom() > MY_ZOOM)
+			{;}
+			//map.setCenter(myLatlng);
+			//loadXML("Route_002.gpx")    		
+		};
+
+		newPaddockCoords = new google.maps.MVCArray(); // collects coordinates
+
+		
+		//google.maps.event.addListener(map, 'click', function(e){addLatLng(e.latLng);}); //
+
+//		  google.maps.event.addListener(map, 'click', function(event) {
+//    		placeMarker(event.latLng);
+ // 		});
+
+    	var marker = new google.maps.Marker({
+    		position: myLatlng,
+    		title: "Hello Paparangi!"
+    	});
+		
+		//loadXML("paddocks/Route_001.xml");
+		//alert('loading 001');
+		//setTimeout(function(){loadXML("paddocks/Route_002.gpx");}, 1000);
+		loadXML("paddocks/Route_002.gpx")    		
+	}
+	
+    function loadXML(myRoute)
+    {
+	  //alert('loading XML');
+		xmlDoc=document.implementation.createDocument("","",null);
+		xmlDoc.load(myRoute);
+		xmlDoc.onload= readXML;    
+	}
+ 
+    function readXML()
+    {
+		x=xmlDoc.getElementsByTagName('rtept');
+		var paddockCoords = new google.maps.MVCArray();
+		//add paddock cordinates with offset to align Garmin points with google map points
+		for (i=0;i<x.length;i++)
+		{	
+			if(satelliteMapType){
+			paddockCoords.push(new google.maps.LatLng(x[i].attributes.getNamedItem("lat").nodeValue-(-0.0000175),x[i].attributes.getNamedItem("lon").nodeValue-0.000175));}
+			else {
+			paddockCoords.push( new google.maps.LatLng(x[i].attributes.getNamedItem("lat").nodeValue,x[i].attributes.getNamedItem("lon").nodeValue));
+			}
+		}
+		//alert ("loaded coordinates count = "+ paddockCoords.length);
+		
+		drawPaddock(paddockCoords);
+      //}
+	}	
+    	
+	function drawFenceline(path)
+	{
+	  	fenceline = new google.maps.Polyline({
+          path: path,
+          strokeColor: '#ff0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+        fenceline.setMap(map);
+
+	}
+	
+	function removeFenceLine (path)
+	{
+		fenceline.setMap(null);
+	}
+
+	function findCentre	(thesePaddockCoords)
+	{
+		//alert("length= "+ thesePaddockCoords.getLength());
+		
+		var bounds = new google.maps.LatLngBounds(thesePaddockCoords.getAt(0),thesePaddockCoords.getAt(1));
+		var i;		
+		for (i = 2; i < thesePaddockCoords.getLength(); i++) 
+		{
+		  	bounds.extend(thesePaddockCoords.getAt(i));
+			//alert ("new coords="+thesePaddockCoords.getAt(i)+", centre="+  bounds.getCenter());
+		}
+
+		//alert ("NorthEast = "+bounds.getNorthEast());
+		//alert ("SouthWest= "+bounds.getSouthWest());
+		//alert ("Centre = "+bounds.getCenter());
+		//alert (bounds.toString());
+		return bounds.getCenter();
+	}
+		
+	function drawPaddock(thesePaddockCoords){	
+    
+		alert("Drawing paddock...");
+		alert(thesePaddockCoords.getLength()+" markers");
+    	
+    	
+    	myPaddock = new google.maps.Polygon({
+    		paths: thesePaddockCoords,
+    		strokeColor: "#FF0000",
+    		strokeOpacity: 0.5,
+    		strokeWeight: 4,
+    		fillColor: "",//"#FF0000",
+    		fillOpacity: 0.2
+    	});
+    	
+    	myPaddock.setMap(map);
+		//*/
+//(google.maps.geometry.spherical.computeArea(OneKiloMeterSquarePolygon.getPath())/(1000.0*1000.0)).toFixed(6)+"</td><td>km&sup2;</td></tr>"
+//  areaString += "</table>"    	
+    	//marker test
+		//alert("Testing area calculation");
+		//var pArea=myPaddock.Area()
+		
+		//alert("Area = "+ (myPaddock.Area()/10000).toFixed(2));//
+		//alert("Centre = "+ findCentre(myPaddock.getPath()));//thesePaddockCoords
+		
+		contentString = (myPaddock.Area()/10000).toFixed(2);
+		var paddockArea = new MapLabel({
+		  //text: 'Homestead',
+		  text: contentString,	
+		  position: findCentre(myPaddock.getPath()),//new google.maps.LatLng(-39.70671, 174.96760),
+		  map: map,
+		  fontSize: 12
+		});
+		paddockArea.set('position', findCentre(myPaddock.getPath()));
+		
+
+		//alert("Spherical area= "+google.maps.geometry.spherical.computeArea(myPaddock.getPath()));
+
+    	//Event Listener Test
+    	//google.maps.event.addListener(map, 'click', function(){
+    	//	marker.setMap(map);
+		
+
+    		
+    	//});
+		//alert('Map drawn?');
+    		
+    	}
+
+		function addLatLng(location)
+		{
+			//alert('addLatLng called:');
+			//alert(location.toString());
+			//save point
+			//if (newPaddockCoords.push(location)>1)	//connect to previous point		
+			//{
+				//drawPaddock(newPaddockCoords);
+			//	drawFenceline(newPaddockCoords);
+			//}
+			placeMarker(location);
+			newPaddockCoords.push(location);
+			
+		}
+	
+		function placeMarker(location) {
+		  var marker = new google.maps.Marker({
+			  position: location,
+			  map: map
+		  });
+		}
+		
+		function completePaddock()
+		{
+			if (newPaddockCoords.getLength() >2)	//connect to previous point		
+			{
+				//alert (newPaddockCoords.getAt(0));
+				addLatLng(newPaddockCoords.getAt(0));
+				drawPaddock(newPaddockCoords);
+				//drawFenceline(newPaddockCoords);
+			}
+			
+			newPaddockCoords.clear();
+			google.maps.event.removeListener(myMouseListener);
+			
+		}
+		
+		function startNewPaddock()
+		{
+			myMouseListener = google.maps.event.addListener(map, 'click', function(e){addLatLng(e.latLng);}); //
+		
+		}
+		
+		function undoLastMark()
+		{
+			newPaddockCoords.pop();
+			removeFenceLine();
+			drawFenceline(newPaddockCoords);
+		}
+		
+		function goHome()
+		{
+		    map.setZoom(MY_ZOOM);
+    		map.setCenter(myLatlng);
+
+		}
+		
+		function deleteLastPaddock()
+		{
+			alert(myPaddock.toString());
+			myPaddock.setMap(null);
+		}
+		
+    	
+    </script>
+
+  </head>
+  
+  
+  
+  <body onLoad="initialize()">
+    <div id="map_canvas" style="width:80%; height: 80%"></div>
+    <button onClick="startNewPaddock()">Start Marking Paddock</button>   
+	<button onClick="completePaddock()">Stop Marking Paddock</button> 
+    <button onClick="undoLastMark()">Undo Last Mark Point</button>  
+    <button onClick="goHome()">Go To Homestead</button> 
+    <button onClick="deleteLastPaddock()">Delete Last Paddock</button> 
+     
+    
+  </body>
+</html>
