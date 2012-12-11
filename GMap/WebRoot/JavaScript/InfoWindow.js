@@ -31,12 +31,13 @@ function showPaddockGrazings(paddockGrazings) {
 	$("#GrazingData").empty();
 	var strHTML = "";
 	$.each(jsonPaddockGrazings, function() {
-		strHTML += "<tr id='" + this.gid + "'>";
+		strHTML += "<tr class='gid' id='" + this.gid + "'>";
 		strHTML += "<td class='tdgid'>"+this.gid+"&nbsp;&nbsp;&nbsp;</td>";
 		strHTML += "<td>"+this.G_Date_In+"&nbsp;&nbsp;&nbsp;</td>";
 		strHTML += "<td>"+this.G_Date_Out+"&nbsp;&nbsp;&nbsp;</td>";
 		strHTML += "<td>"+this.note+"</td>";
 		strHTML += "<td>"+"<input class='gtr button blue' type='button' value='StockCount?'>"+"</td>";
+		strHTML += "<td>"+"<input class='gscAdd button green' type='button' value='AddStockCount'>"+"</td>";
 		strHTML += "</tr>";
 	});
 	$("#GrazingData").html(strHTML);
@@ -46,6 +47,13 @@ function showPaddockGrazings(paddockGrazings) {
 		labelStockCount($(this).parent().parent().attr("id"));
 		$("#map_canvas").data("focusedGrazingId", $(this).parent().parent().attr("id"));
 		console.log("focusedGrazingId:" + $("#map_canvas").data("focusedGrazingId"));
+	});
+	$(".gscAdd").click(function() {
+		console.log($(this).parent().parent().attr("id"));
+		labelStockCount($(this).parent().parent().attr("id"));
+		$("#map_canvas").data("focusedGrazingId", $(this).parent().parent().attr("id"));
+		console.log("focusedGrazingId:" + $("#map_canvas").data("focusedGrazingId"));
+		addSC($(this).parent().parent().attr("id"));
 	});
 }
 

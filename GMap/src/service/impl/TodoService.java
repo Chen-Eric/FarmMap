@@ -49,7 +49,14 @@ public class TodoService implements ITodoService {
 	 * @see service.ITodoService#deleteTodo(domain.Todo)
 	 */
 	@Override
-	public void deleteTodo(Todo todo) {
+	public void deleteTodo(short tid) {
+		Todo todo = new Todo();
+//		todo.setTId(tid);
+//		todo.setPaddockPId(pid);
+//		todo.setPaddockFarmFId(fid);
+		
+		todo = todoDAO.findById(tid);
+		
 		todoDAO.delete(todo);
 	}
 
@@ -59,8 +66,32 @@ public class TodoService implements ITodoService {
 	 * @see service.ITodoService#updateTodo(domain.Todo)
 	 */
 	@Override
-	public void updateTodo(Todo todo) {
-		todoDAO.updateTodo(todo);
+	public void updateTodo(short tid, String enterDate, String dueDate,  String description, boolean done) {
+		Todo todo = new Todo();
+		todo = todoDAO.findById(tid);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			if (dueDate.equals("No due date.")) {
+				java.util.Date enterD = sdf.parse(enterDate);
+				todo.setTDateEntered(enterD);
+				
+			} else {
+				java.util.Date enterD = sdf.parse(enterDate);
+				java.util.Date dueD = sdf.parse(dueDate);
+				
+				todo.setTDateEntered(enterD);
+				todo.setTDateDue(dueD);
+				
+			}
+			
+			todo.setTDescription(description);
+			todo.setTDone(done);
+			
+			todoDAO.updateTodo(todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*

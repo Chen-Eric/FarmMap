@@ -68,7 +68,7 @@
 			<result name="error" type="redirect">/manage.jsp</result>
 		</action>
 		
-		<action name="EditPaddockTodo" class="TodoAction" method="deletePaddockTodo">
+		<action name="EditPaddockTodo" class="TodoAction">
 			<result name="success" type="redirect">/manage.jsp</result>
 			<result name="error" type="redirect">/manage.jsp</result>
 		</action>

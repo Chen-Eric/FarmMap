@@ -136,10 +136,32 @@ public class TodoAction extends BaseAction{
 		
 	}
 	
+	public String editPaddockTodo(){
+		
+		short farmId = (Short) session.get("farmId");
+		
+		if (todoIsDone.equals("false")) {
+			todoService.updateTodo((short) selectedTodoId, todoEnterDate, todoDueDate, selectedDescription, false);
+			List<TodoFormatter> ltf = todoService.listTodoByPaddockForForm(farmId, (short)selectedPId);
+			session.remove("paddockTodosFromDB");
+			session.put("paddockTodosFromDB", ltf);
+		} else {
+			todoService.updateTodo((short) selectedTodoId, todoEnterDate, todoDueDate, selectedDescription, true);
+			List<TodoFormatter> ltf = todoService.listTodoByPaddockForForm(farmId, (short)selectedPId);
+			session.remove("paddockTodosFromDB");
+			session.put("paddockTodosFromDB", ltf);
+		}
+		
+		return SUCCESS;
+	}
+	
 	public String deletePaddockTodo(){
+		short farmId = (Short) session.get("farmId");
 		
-		
-		
+		todoService.deleteTodo((short)selectedTodoId);
+		List<TodoFormatter> ltf = todoService.listTodoByPaddockForForm(farmId, (short)selectedPId);
+		session.remove("paddockTodosFromDB");
+		session.put("paddockTodosFromDB", ltf);
 		return SUCCESS;
 	}
 }

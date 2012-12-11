@@ -21,7 +21,7 @@ function showPaddockSCs(stockCountsInDB) {
 		strHTML += "<td class='scCount' id='" + this.scCount + "'>"+this.scCount+"&nbsp;&nbsp;&nbsp;</td>";
 //		strHTML += "<td>"+"<input class='gscUpdate blue' type='button' value='Update'>"+"</td>";
 		strHTML += "<td>"+"<input class='gscDelete red' type='button' value='Delete'>"+"</td>";
-		strHTML += "<td>"+"<input class='gscAdd green' type='button' value='Add...'>"+"</td>";
+//		strHTML += "<td>"+"<input class='gscAdd green' type='button' value='Add...'>"+"</td>";
 		strHTML += "</tr>";
 	});
 	$("#scData").html(strHTML);

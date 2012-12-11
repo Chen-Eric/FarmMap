@@ -21,9 +21,9 @@ public interface ITodoService {
 	
 	public void addTodo(short pid, short fid, String enterDate, String dueDate, String description, boolean done);
 	
-	public void deleteTodo(Todo todo);
+	public void deleteTodo(short tid);
 	
-	public void updateTodo(Todo todo);
+	public void updateTodo(short tid, String enterDate, String dueDate,  String description, boolean done);
 	
 	public List<Todo> listTodoByPaddock(short farmId, short paddockId);
 	

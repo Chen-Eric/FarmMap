@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="CSS/todoPage.css">
 
 <div id="paddockTodo">
-	<table>
+	<table id="paddockTodoTable">
 		<caption>Paddock Todos</caption>
 		<thead>
 			<tr id="theadTr">
@@ -25,12 +25,11 @@
 
 			<s:iterator value="#session.paddockTodosFromDB" status="paddockTodo"
 				var="singlePaddockTodo">
-				<s:form action="EditPaddockTodo" namespace="/Todo" method="post">
-					<tr style="background-color: #cccc00">
+				<s:form action="EditPaddockTodo" namespace="/Todo">
+					<tr style="background-color: #cccc00" class="todoFormTR">
 						<s:hidden name="selectedTodoId" value="%{#singlePaddockTodo.TId}">
 						</s:hidden>
-						<s:hidden name="selectedPId"
-							value="%{#session.selectedPId}">
+						<s:hidden name="selectedPId" value="%{#session.selectedPId}">
 						</s:hidden>
 						<s:hidden name="selectedEnterDate"
 							value="%{#singlePaddockTodo.TDateEntered}">
@@ -44,23 +43,23 @@
 						<s:hidden name="selectedDone" value="%{#singlePaddockTodo.TDone}">
 						</s:hidden>
 						<td>
-							<table>
+							<table class="stext">
 								<s:textfield name="todoEnterDate"
 									value="%{#singlePaddockTodo.TDateEntered}" size="12px" />
 							</table>
 						</td>
-						<td><table>
+						<td><table class="stext">
 								<s:textfield name="todoDueDate"
 									value="%{#singlePaddockTodo.TDateDue}" size="12px" />
 							</table></td>
 						<td>
-							<table>
+							<table class="stext">
 								<s:textfield name="todoDescription"
-									value="%{#singlePaddockTodo.TDescription}" size="15px" />
+									value="%{#singlePaddockTodo.TDescription}" size="8px" />
 							</table>
 						</td>
 						<td>
-							<table>
+							<table class="stext">
 								<s:if test="#singlePaddockTodo.TDone == true">
 									<s:radio name="todoIsDone"
 										list="%{#{'true':'Done','false':'Not'}}" value="true"></s:radio>
@@ -71,40 +70,44 @@
 								</s:else>
 							</table>
 						</td>
-						<td><table>
+						<td><table class="stext">
 								<s:submit id="update_button" cssClass="button red"
-									value="Delete" onmouseup="update_paddockTodo_data()" />
+									method="deletePaddockTodo" value="Delete"
+									onmouseup="update_paddockTodo_data()" />
 							</table></td>
-						<td><table>
+
+						<td><table class="stext">
 								<s:submit id="delete_button" cssClass="button green"
-									value="Update" onmouseup="update_paddockTodo_data()" />
-							</table></td>
+									method="editPaddockTodo" value="Update"
+									onmouseup="update_paddockTodo_data()" />
+							</table>
+						</td>
+
 					</tr>
 				</s:form>
 			</s:iterator>
 			<s:form action="AddPaddockTodo" namespace="/Todo">
-					<s:hidden name="selectedPId"
-						value="%{#session.selectedPId}">
-					</s:hidden>
+				<s:hidden name="selectedPId" value="%{#session.selectedPId}">
+				</s:hidden>
 				<td>
-					<table>
+					<table class="stext">
 						<s:textfield name="todoEnterDate" size="12px"></s:textfield>
 					</table></td>
 				<td>
-					<table>
+					<table class="stext">
 						<s:textfield name="todoDueDate" size="12px"></s:textfield>
 					</table></td>
 				<td>
-					<table>
+					<table class="stext">
 						<s:textfield name="todoDescription" size="15px"></s:textfield>
 					</table></td>
 				<td>
-					<table>
+					<table class="stext">
 						<s:radio name="todoIsDone"
 							list="%{#{'true':'Done','false':'Not'}}" value="false"></s:radio>
 					</table></td>
 				<td>
-					<table>
+					<table class="stext">
 						<s:submit id="add_button" value="Add..." cssClass="button blue"
 							method="addPaddockTodo" onmouseup="update_paddockTodo_data()" />
 					</table>
