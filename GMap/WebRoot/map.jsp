@@ -49,6 +49,7 @@
 <script type="text/javascript" src="JavaScript/InfoWindow.js"></script>
 <script type="text/javascript" src="JavaScript/Map.js"></script>
 <script type="text/javascript" src="JavaScript/Paddock.js"></script>
+<script type="text/javascript" src="JavaScript/Icon.js"></script>
 
 <script type="text/javascript">
 	

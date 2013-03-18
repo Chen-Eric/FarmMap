@@ -1,7 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sj" uri="/struts-jquery-tags"%>
+<%@ taglib prefix="sj" uri="/struts-jquery-tags" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -27,7 +26,7 @@
 <link rel="stylesheet" type="text/css" href="CSS/ui.jqgrid.css">
 
 <!-- This line the key point to call the Struts2-jQuery-Plugin -->
-<sj:head jqueryui="true" jquerytheme="smoothness" />
+<sj:head jqueryui="true" jquerytheme="smoothness" debug="true" compressed="false"/>
 
 <script type="text/javascript"
 	src="https://maps.google.com/maps/api/js?sensor=false">
@@ -69,35 +68,41 @@
 					<td>
 						<p align="center">
 							<button class="button white" onclick="forwardPage('index')">Home</button>
-						</p></td>
+						</p>
+					</td>
 					<td>
 						<p align="center">
 							<button class="button green" onclick="forwardPage('welcome')">Welcome&nbsp;Page</button>
-						</p></td>
+						</p>
+					</td>
 					<td>
 						<p align="center">
 							<button class="button blue" onclick="forwardPage('map')">Manage&nbsp;Map</button>
-						</p></td>
+						</p>
+					</td>
 					<td>
 						<p align="center">
 							<button class="button red" onclick="exit()">Exit&nbsp;Farm</button>
-						</p></td>
+						</p>
+					</td>
 				</tr>
 			</table>
-			
+
 			<div id="Infowindow">
-				<sj:tabbedpanel id="infotabs" spinner="Loading...">
+				
+				<sj:tabbedpanel id="infotabs" title="Paddoc Basic InfoPanel">
 				
 					<sj:tab id="Basic" target="tBasic" label="Basic" />
 					<sj:tab id="Todo" target="tTodo" label="Todo" />
 					<sj:tab id="Grazing" target="tGrazing" label="Grazing" />
 
 					<div id="tBasic">
-						<table id="BasicInfos" align="center" title="PaddockBasicInfo" class="tabDivTable">
+						<table id="BasicInfos" align="center" title="PaddockBasicInfo"
+							class="tabDivTable">
 							<tbody id="BasicInfoData" class="tbody"></tbody>
 						</table>
 					</div>
-					
+
 					<div id="tGrazing">
 						<table id="Grazings" align="center" title="Grazings"
 							class="tabDivTable">
@@ -145,44 +150,11 @@
 						<div class="paddockTodoDIV">
 							<jsp:include page="paddockTodo.jsp" />
 						</div>
-						<!-- 
-							<table id="Todos" align="center" title="Todos" class="tabDivTable">
-							<thead>
-								<tr>
-									<th>Date&nbsp;Entered&nbsp;</th>
-									<th>Date&nbsp;Due&nbsp;</th>
-									<th>Description</th>
-								</tr>
-							</thead>
-							<tbody id="TodoData" class="tbody"></tbody>
-						</table>
-						
-						
-						<s:url var="todoGridActionURL" action="showPaddockTodoInGrid"
-							namespace="/TodoGrid" />
-
-						<sjg:grid id="todoGrid" caption="Todo Grid Test" dataType="json"
-							href="%{todoGridActionURL}" pager="false"
-							gridModel="gridModel" rowList="10,15,20" rowNum="10"
-							rownumbers="false" viewrecords="true">
-							<sjg:gridColumn name="paddockFarmFId" index="paddockFarmFId"
-								title="fid" hidden="true" />
-							<sjg:gridColumn name="paddockPId" index="paddockPId" title="pid"
-								hidden="true" />
-							<sjg:gridColumn name="TId" index="TId" title="TodoID"
-								formatter="integer" sortable="false" />
-							<sjg:gridColumn name="TDateEntered" index="TDateEntered" title="EnterDate" sortable="false"></sjg:gridColumn>
-							<sjg:gridColumn name="TDateDue" index="TDateDue" title="DueDate" sortable="false"></sjg:gridColumn>
-							<sjg:gridColumn name="TDescription" index="TDescription" title="Note" sortable="false"></sjg:gridColumn>
-							<sjg:gridColumn name="TDone" index="TDone" title="State" sortable="false"></sjg:gridColumn>
-						</sjg:grid>
-						 -->
-						
 					</div>
 				</sj:tabbedpanel>
-				
+
 			</div>
-			
+
 			<!-- 
 				
 			 -->
