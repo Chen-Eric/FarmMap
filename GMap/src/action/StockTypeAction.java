@@ -9,8 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import common.StockTypeAdapter;
 
-import net.sf.json.util.JSONBuilder;
-
 import domain.StockType;
 
 /**

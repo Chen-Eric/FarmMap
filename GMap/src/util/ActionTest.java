@@ -12,8 +12,6 @@ import java.util.Map;
 
 import javax.jms.Session;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
